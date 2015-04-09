@@ -28,16 +28,16 @@
         <xsl:value-of select="$textSeparatorLong"/>
         <xsl:text>&#xA;</xsl:text>
         
-        <!-- _locID_text="TeamProjectCollection" -->Team Project Collection: <xsl:value-of select="@TeamProjectCollectionUrl" />
+        <!-- _locID_text="TeamProjectCollection" -->Coleção: <xsl:value-of select="@TeamProjectCollectionUrl" />
         <xsl:text>&#xA;</xsl:text>
 
-        <!-- _locID_text="EventAction" -->Action: <xsl:value-of select="@ChangedType" />
+        <!-- _locID_text="EventAction" -->Ação: <xsl:value-of select="@ChangedType" />
         <xsl:text>&#xA;</xsl:text>
 
-        <!-- _locID_text="ChangedBy" -->Changed By: <xsl:value-of select="@ChangedBy" />
+        <!-- _locID_text="ChangedBy" -->Modificado por: <xsl:value-of select="@ChangedBy" />
         <xsl:text>&#xA;</xsl:text>
         
-        <!-- _locID_text="Name" -->Name: <xsl:value-of select="@Name" /> (<xsl:value-of select="@Uri" />)
+        <!-- _locID_text="Name" -->Nome: <xsl:value-of select="@Name" /> (<xsl:value-of select="@Uri" />)
         <xsl:text>&#xA;</xsl:text>
         
         <xsl:choose>
@@ -52,7 +52,7 @@
                                  
                 <!-- Retention policies -->
                 <xsl:for-each select="b:RetentionPolicyChanges/b:PropertyChangeOfRetentionPolicy">
-                    <!-- Retention policy -->Retention Policy[<xsl:value-of select="position()"/><xsl:text>]: </xsl:text>
+                    <!-- Retention policy -->Política de Retenção[<xsl:value-of select="position()"/><xsl:text>]: </xsl:text>
                     <xsl:for-each select="b:NewValue/@*">
                         <xsl:sort select="name()"/>
                         <xsl:value-of select="name()" />=<xsl:value-of select="."/><xsl:text>, </xsl:text>
@@ -62,7 +62,7 @@
                                    
                 <!-- Schedule -->
                 <xsl:for-each select="b:ScheduleChanges/b:PropertyChangeOfSchedule">
-                    <!-- Schedule -->Schedule:<xsl:text>&#160;</xsl:text>
+                    <!-- Schedule -->Agendamento:<xsl:text>&#160;</xsl:text>
                     <xsl:for-each select="b:NewValue/@*">
                         <xsl:sort select="name()"/>
                         <xsl:value-of select="name()"/><xsl:text>=</xsl:text>
@@ -79,9 +79,9 @@
                     <xsl:text>&#13;</xsl:text>
                 </xsl:for-each>
                                  
-                <!-- Workspace mappings -->
+                <!-- Mapeamento de Workspaces -->
                 <xsl:for-each select="b:WorkspaceMappingChanges/b:PropertyChangeOfWorkspaceMappin">
-                    <!-- Workspace mapping -->Workspace Mapping[<xsl:value-of select="position()"/><xsl:text>]: </xsl:text>
+                    <!-- Mapeamento de Workspace -->Mapeamento de Workspace[<xsl:value-of select="position()"/><xsl:text>]: </xsl:text>
                     <xsl:for-each select="b:NewValue/@*">
                         <xsl:sort select="name()"/>
                         <xsl:value-of select="name()" />=<xsl:value-of select="."/><xsl:text>, </xsl:text>
@@ -97,20 +97,20 @@
                 <xsl:for-each select="b:PropertyChanges/b:PropertyChange">
                     <xsl:sort select="@Name"/>
                     <xsl:value-of select="@Name" /><xsl:text>:&#xA;</xsl:text>
-                    <xsl:text>&#160;&#160;&#160;&#160;Old Value:</xsl:text><xsl:value-of select="b:OldValue" /><xsl:text>&#xA;</xsl:text>
-                    <xsl:text>&#160;&#160;&#160;&#160;New Value:</xsl:text><xsl:value-of select="b:NewValue" /><xsl:text>&#xA;</xsl:text>
+                    <xsl:text>&#160;&#160;&#160;&#160;Valor Anterior:</xsl:text><xsl:value-of select="b:OldValue" /><xsl:text>&#xA;</xsl:text>
+                    <xsl:text>&#160;&#160;&#160;&#160;Novo Valor:</xsl:text><xsl:value-of select="b:NewValue" /><xsl:text>&#xA;</xsl:text>
                 </xsl:for-each>
 
                 <!-- Retention policies -->
                 <xsl:for-each select="b:RetentionPolicyChanges/b:PropertyChangeOfRetentionPolicy">
-                    <xsl:text>Retention Policy[</xsl:text><xsl:value-of select="position()"/><xsl:text>]:&#xA;</xsl:text>
-                    <xsl:text>&#160;&#160;&#160;&#160;Old Value:</xsl:text>
+                    <xsl:text>Política de Retenção[</xsl:text><xsl:value-of select="position()"/><xsl:text>]:&#xA;</xsl:text>
+                    <xsl:text>&#160;&#160;&#160;&#160;Valor Anterior:</xsl:text>
                     <xsl:for-each select="b:OldValue/@*">
                         <xsl:sort select="name()"/>
                         <xsl:value-of select="name()" />=<xsl:value-of select="."/><xsl:text>, </xsl:text>
                     </xsl:for-each>
                     <xsl:text>&#13;</xsl:text>
-                    <xsl:text>&#160;&#160;&#160;&#160;New Value:</xsl:text>
+                    <xsl:text>&#160;&#160;&#160;&#160;Novo Valor:</xsl:text>
                     <xsl:for-each select="b:NewValue/@*">
                         <xsl:sort select="name()"/>
                         <xsl:value-of select="name()" />=<xsl:value-of select="."/><xsl:text>, </xsl:text>
@@ -120,8 +120,8 @@
 
                 <!-- Schedule -->
                 <xsl:for-each select="b:ScheduleChanges/b:PropertyChangeOfSchedule">
-                    <xsl:text>Schedule:&#xA;</xsl:text>
-                    <xsl:text>&#160;&#160;&#160;&#160;Old Value: </xsl:text>
+                    <xsl:text>Agendamento:&#xA;</xsl:text>
+                    <xsl:text>&#160;&#160;&#160;&#160;Valor Anterior: </xsl:text>
                     <xsl:for-each select="b:OldValue/@*">
                         <xsl:sort select="name()"/>
                         <xsl:value-of select="name()"/><xsl:text>=</xsl:text>
@@ -136,7 +136,7 @@
                         <xsl:text>, </xsl:text>
                     </xsl:for-each>
                     <xsl:text>&#13;</xsl:text>
-                    <xsl:text>&#160;&#160;&#160;&#160;New Value: </xsl:text>
+                    <xsl:text>&#160;&#160;&#160;&#160;Novo Valor: </xsl:text>
                     <xsl:for-each select="b:NewValue/@*">
                         <xsl:sort select="name()"/>
                         <xsl:value-of select="name()"/><xsl:text>=</xsl:text>
@@ -153,16 +153,16 @@
                     <xsl:text>&#13;</xsl:text>
                 </xsl:for-each>
 
-                <!-- Workspace mappings -->
+                <!-- Mapeamento de Workspaces -->
                 <xsl:for-each select="b:WorkspaceMappingChanges/b:PropertyChangeOfWorkspaceMapping">
-                    <xsl:text>Workspace Mapping[</xsl:text><xsl:value-of select="position()"/><xsl:text>]:&#xA;</xsl:text>
-                    <xsl:text>&#160;&#160;&#160;&#160;Old Value:</xsl:text>
+                    <xsl:text>Mapeamento de Workspace[</xsl:text><xsl:value-of select="position()"/><xsl:text>]:&#xA;</xsl:text>
+                    <xsl:text>&#160;&#160;&#160;&#160;Valor Anterior:</xsl:text>
                     <xsl:for-each select="b:OldValue/@*">
                         <xsl:sort select="name()"/>
                         <xsl:value-of select="name()" />=<xsl:value-of select="."/><xsl:text>, </xsl:text>
                     </xsl:for-each>
                     <xsl:text>&#13;</xsl:text>
-                    <xsl:text>&#160;&#160;&#160;&#160;New Value:</xsl:text>
+                    <xsl:text>&#160;&#160;&#160;&#160;Novo Valor:</xsl:text>
                     <xsl:for-each select="b:NewValue/@*">
                         <xsl:sort select="name()"/>
                         <xsl:value-of select="name()" />=<xsl:value-of select="."/><xsl:text>, </xsl:text>
@@ -182,7 +182,7 @@
 
                 <!-- Retention policies -->
                 <xsl:for-each select="b:RetentionPolicyChanges/b:PropertyChangeOfRetentionPolicy">
-                    <!-- Retention policy -->Retention Policy[<xsl:value-of select="position()"/><xsl:text>]: </xsl:text>
+                    <!-- Retention policy -->Política de Retenção[<xsl:value-of select="position()"/><xsl:text>]: </xsl:text>
                     <xsl:for-each select="b:OldValue/@*">
                         <xsl:sort select="name()"/>
                         <xsl:value-of select="name()" />=<xsl:value-of select="."/><xsl:text>, </xsl:text>
@@ -192,7 +192,7 @@
 
                 <!-- Schedule -->
                 <xsl:for-each select="b:ScheduleChanges/b:PropertyChangeOfSchedule">
-                    <!-- Schedule -->Schedule:<xsl:text>&#160;</xsl:text>
+                    <!-- Schedule -->Agendamento:<xsl:text>&#160;</xsl:text>
                     <xsl:for-each select="b:OldValue/@*">
                         <xsl:sort select="name()"/>
                         <xsl:value-of select="name()"/><xsl:text>=</xsl:text>
@@ -209,9 +209,9 @@
                     <xsl:text>&#13;</xsl:text>
                 </xsl:for-each>
 
-                <!-- Workspace mappings -->
+                <!-- Mapeamento de Workspaces -->
                 <xsl:for-each select="b:WorkspaceMappingChanges/b:PropertyChangeOfWorkspaceMapping">
-                    <!-- Workspace mapping -->Workspace Mapping[<xsl:value-of select="position()"/><xsl:text>]: </xsl:text>
+                    <!-- Mapeamento de Workspace -->Mapeamento de Workspace[<xsl:value-of select="position()"/><xsl:text>]: </xsl:text>
                     <xsl:for-each select="b:OldValue/@*">
                         <xsl:sort select="name()"/>
                         <xsl:value-of select="name()" />=<xsl:value-of select="."/><xsl:text>, </xsl:text>

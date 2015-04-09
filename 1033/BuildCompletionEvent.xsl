@@ -4,7 +4,7 @@
   <!-- Common TFS elements -->
   <xsl:template match="BuildCompletionEvent">
     <head>
-      <title _locID="Title">Team Foundation Server Build Completed</title>
+      <title _locID="Title">Build do TFS Finalizado</title>
       <!-- Pull in the common style settings -->
       <xsl:call-template name="style">
       </xsl:call-template>
@@ -28,32 +28,32 @@
           </td>
         </tr>
         <tr>
-          <td class="PropName" _locID="BuildNumber">Build Number: </td>
+          <td class="PropName" _locID="BuildNumber">Id do Build: </td>
           <td class="PropValue">
             <xsl:value-of select="Id"/>
           </td>
         </tr>
         <tr>
-          <td class="PropName" _locID="RequestedBy">Build started by: </td>
+          <td class="PropName" _locID="RequestedBy">Build iniciado por: </td>
           <td class="PropValue">
             <xsl:value-of select="RequestedBy"/>
           </td>
         </tr>
         <tr>
-          <td class="PropName" _locID="BuildMachine">Build machine: </td>
+          <td class="PropName" _locID="BuildMachine">Máquina de Build: </td>
           <td class="PropValue">
             <xsl:value-of select="BuildMachine"/>
           </td>
         </tr>
         <tr>
-          <td class="PropName" _locID="BuildStartTime">Build started on:</td>
+          <td class="PropName" _locID="BuildStartTime">Build iniciado em:</td>
           <td class="PropValue">
             <xsl:value-of select="BuildStartTime" />
           </td>
         </tr>
 
         <tr>
-          <td class="PropName" _locID="BuildCompleteTime">Build completed on:</td>
+          <td class="PropName" _locID="BuildCompleteTime">Build finalizado em:</td>
           <td class="PropValue">
             <xsl:value-of select="BuildCompleteTime" />
           </td>

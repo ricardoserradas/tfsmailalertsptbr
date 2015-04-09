@@ -12,21 +12,21 @@
         <xsl:value-of select="$textSeparatorLong"/>
         <xsl:text>&#xA;</xsl:text>
         <!-- _locID_text="TeamProject" -->Team Project: <xsl:value-of select="TeamProject"/>
-        <!-- _locID_text="BuildNumber" -->Build Number: <xsl:value-of select="BuildNumber"/>
+        <!-- _locID_text="BuildNumber" -->Id do Build: <xsl:value-of select="BuildNumber"/>
         <!-- _locID_text="BuildAgent" -->Build Controller: <xsl:value-of select="AgentPath"/>
-        <!-- _locID_text="BuildDefinition" -->Build Definition: <xsl:value-of select="DefinitionPath"/>
+        <!-- _locID_text="BuildDefinition" -->Definição de Build: <xsl:value-of select="DefinitionPath"/>
         <xsl:choose>
             <xsl:when test="(count(RequestedFor) &gt; 0) and (RequestedFor != RequestedBy)">
-                <!-- _locID_text="RequestedFor" -->Build started by: <xsl:value-of select="RequestedBy"/> (on behalf of: <xsl:value-of select="RequestedFor"/>)
+                <!-- _locID_text="RequestedFor" -->Build Iniciado por: <xsl:value-of select="RequestedBy"/> (em nome de: <xsl:value-of select="RequestedFor"/>)
             </xsl:when>
             <xsl:otherwise>
-                <!-- _locID_text="RequestedBy" -->Build started by: <xsl:value-of select="RequestedBy"/>
+                <!-- _locID_text="RequestedBy" -->Build Iniciado por: <xsl:value-of select="RequestedBy"/>
             </xsl:otherwise>
         </xsl:choose>
-        <!-- _locID_text="StartTime" -->Build Start Time: <xsl:value-of select="StartTime" />
-        <!-- _locID_text="FinishTime" -->Build Finish Time: <xsl:value-of select="FinishTime" />
+        <!-- _locID_text="StartTime" -->Horário do Início do Build: <xsl:value-of select="StartTime" />
+        <!-- _locID_text="FinishTime" -->Horário do Término do Build: <xsl:value-of select="FinishTime" />
         <xsl:if test="StatusCode != 'Succeeded'">
-            <!-- _locID_text="LogLocation" -->Build Log Location: <xsl:call-template name="link">
+            <!-- _locID_text="LogLocation" -->Local do Log do Build: <xsl:call-template name="link">
                 <xsl:with-param name="format" select="'text'"/>
                 <xsl:with-param name="link" select="LogLocation"/>
                 <xsl:with-param name="displayText" select="LogLocation"/>

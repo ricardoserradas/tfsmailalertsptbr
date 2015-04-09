@@ -4,7 +4,7 @@
   <!-- Common TFS elements -->
   <xsl:template match="BuildCompletionEvent2">
     <head>
-      <title _locID="Title">Team Foundation Server Build Completed</title>
+      <title _locID="Title">Build do TFS Finalizado</title>
       <!-- Pull in the common style settings -->
       <xsl:call-template name="style">
       </xsl:call-template>
@@ -28,7 +28,7 @@
           </td>
         </tr>
         <tr>
-          <td class="PropName" _locID="BuildNumber">Build Number: </td>
+          <td class="PropName" _locID="BuildNumber">Id do Build: </td>
           <td class="PropValue">
             <xsl:value-of select="BuildNumber"/>
           </td>
@@ -40,37 +40,37 @@
           </td>
         </tr>
         <tr>
-          <td class="PropName" _locID="BuildDefinition">Build Definition: </td>
+          <td class="PropName" _locID="BuildDefinition">Definição de Build: </td>
           <td class="PropValue">
             <xsl:value-of select="DefinitionPath"/>
           </td>
         </tr>
         <tr>
-          <td class="PropName" _locID="RequestedBy">Build started by: </td>
+          <td class="PropName" _locID="RequestedBy">Build iniciado por: </td>
           <td class="PropValue">
             <xsl:value-of select="RequestedBy"/>
 
             <!-- Only display the requested for when it is present -->
             <xsl:if test="(count(RequestedFor) &gt; 0) and (RequestedFor != RequestedBy)">
-                <!-- _locID_text="RequestedFor" -->(on behalf of: <xsl:value-of select="RequestedFor" />)
+                <!-- _locID_text="RequestedFor" -->(em nome de: <xsl:value-of select="RequestedFor" />)
             </xsl:if>
           </td>
         </tr>
         <tr>
-          <td class="PropName" _locID="StartTime">Build Start Time: </td>
+          <td class="PropName" _locID="StartTime">Horário do Início do Build: </td>
           <td class="PropValue">
             <xsl:value-of select="StartTime" />
           </td>
         </tr>
         <tr>
-          <td class="PropName" _locID="FinishTime">Build Finish Time: </td>
+          <td class="PropName" _locID="FinishTime">Horário do Término do Build: </td>
           <td class="PropValue">
             <xsl:value-of select="FinishTime" />
           </td>
         </tr>
         <xsl:if test="StatusCode != 'Succeeded'">
           <tr>
-            <td class="PropName" _locID="LogLocation">Build Log Location: </td>
+            <td class="PropName" _locID="LogLocation">Local do Log de Build: </td>
             <td class="PropValue">
               <xsl:call-template name="link">
                 <xsl:with-param name="format" select="'html'"/>
