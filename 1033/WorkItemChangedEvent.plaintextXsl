@@ -32,12 +32,12 @@
   <xsl:for-each select="ChangedFields/IntegerFields/Field">
 <!-- _locID_text="FieldColonText2"-->Campo: <xsl:value-of select="Name" />
 <!-- _locID_text="NewValueColonText2"-->Novo valor: <xsl:value-of select="NewValue"/><xsl:text>&#xD;</xsl:text>
-<!-- _locID_text="OldValueColonText2"-->Valor antigo: <xsl:value-of select="OldValue"/><xsl:text>&#xD;</xsl:text><xsl:text>&#xD;</xsl:text>
+<!-- _locID_text="OldValueColonText2"-->Valor anterior: <xsl:value-of select="OldValue"/><xsl:text>&#xD;</xsl:text><xsl:text>&#xD;</xsl:text>
   </xsl:for-each>      
   <xsl:for-each select="ChangedFields/StringFields/Field">
 <!-- _locID_text="FieldColonText3"-->Campo: <xsl:value-of select="Name"/> 
 <!-- _locID_text="NewValueColonText3"-->Novo valor: <xsl:value-of select="NewValue"/><xsl:text>&#xD;</xsl:text>
-<!-- _locID_text="OldValueColonText3"-->Valor antigo: <xsl:value-of select="OldValue"/><xsl:text>&#xD;</xsl:text><xsl:text>&#xD;</xsl:text>    
+<!-- _locID_text="OldValueColonText3"-->Valor anterior: <xsl:value-of select="OldValue"/><xsl:text>&#xD;</xsl:text><xsl:text>&#xD;</xsl:text>    
   </xsl:for-each>
 </xsl:if>
 <xsl:if test="ChangeType[.='New']">    

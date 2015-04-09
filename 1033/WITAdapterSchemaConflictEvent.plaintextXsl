@@ -13,15 +13,15 @@
     <xsl:text>&#xA;</xsl:text>
     <xsl:value-of select="$textSeparatorLong"/>
     <xsl:text>&#xA;</xsl:text>
-    <xsl:text><!--_locID_text="targetCollection"-->Target Collection: </xsl:text><xsl:value-of select="TeamProjectCollectionName"/>
+    <xsl:text><!--_locID_text="targetCollection"-->Coleção Destino: </xsl:text><xsl:value-of select="TeamProjectCollectionName"/>
     <xsl:text>&#xA;</xsl:text>
-    <xsl:text><!--_locID_text="notificationTime"-->Notification Time: </xsl:text><xsl:value-of select="EventTime"/>
+    <xsl:text><!--_locID_text="notificationTime"-->Horário da Notificação: </xsl:text><xsl:value-of select="EventTime"/>
     <xsl:text>&#xA;</xsl:text>
-    <xsl:text><!--_locID_text="targetCollection"-->Blocked Fields: </xsl:text><xsl:value-of select="count(Conflicts/Conflict)" />
+    <xsl:text><!--_locID_text="targetCollection"-->Campos Bloqueados: </xsl:text><xsl:value-of select="count(Conflicts/Conflict)" />
     <xsl:text>&#xA;</xsl:text>
     <xsl:if test="count(Conflicts) > 0">
       <xsl:text>&#xA;</xsl:text>
-      <xsl:text><!--_locID_text="conflicts"-->--------------- CONFLICTS ----------------</xsl:text>
+      <xsl:text><!--_locID_text="conflicts"-->--------------- CONFLITOS ----------------</xsl:text>
       <xsl:for-each select="Conflicts/Conflict">
         <xsl:text>&#xA;</xsl:text>
         <xsl:call-template name="ConflictingFields">
@@ -43,19 +43,19 @@
     <xsl:param name="conflictingFields" />
     <xsl:for-each select="$conflictingFields/WITField">
       <xsl:text>&#xA;</xsl:text>
-      <xsl:text><!--_locID_text="blockedFieldName"-->Blocked Field Name: </xsl:text>
+      <xsl:text><!--_locID_text="blockedFieldName"-->Nome do Campo Bloqueado: </xsl:text>
       <xsl:value-of select="$blockedField/ReportingDisplayName"/>
       <xsl:text>&#xA;</xsl:text>
-      <xsl:text><!--_locID_text="blockedFieldReferenceName"-->Blocked Field Reference Name: </xsl:text>
+      <xsl:text><!--_locID_text="blockedFieldReferenceName"-->Nome da Referência do Campo Bloqueado: </xsl:text>
       <xsl:value-of select="$blockedField/ReportingReferenceName"/>
       <xsl:text>&#xA;</xsl:text>
-      <xsl:text><!--_locID_text="conflictingFieldName"-->Conflicting Field Name: </xsl:text>
+      <xsl:text><!--_locID_text="conflictingFieldName"-->Nome do Campo Conflitante: </xsl:text>
       <xsl:value-of select="ReportingDisplayName"/>
       <xsl:text>&#xA;</xsl:text>
-      <xsl:text><!--_locID_text="conflictingFieldReferenceName"-->Conflicting Field Reference Name: </xsl:text>
+      <xsl:text><!--_locID_text="conflictingFieldReferenceName"-->Nome da Referência do Campo Conflitante: </xsl:text>
       <xsl:value-of select="ReportingReferenceName"/>
       <xsl:text>&#xA;</xsl:text>
-      <xsl:text><!--_locID_text="collectionName"-->Collection: </xsl:text>
+      <xsl:text><!--_locID_text="collectionName"-->Coleção: </xsl:text>
       <xsl:value-of select="TeamProjectCollectionName"/>
     </xsl:for-each>
   </xsl:template>

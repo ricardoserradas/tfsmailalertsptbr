@@ -23,40 +23,40 @@
                 <!-- locID_text="ClosingReason" -->(Reason: <xsl:value-of select="ClosingComment" />)
             </xsl:if>
         </xsl:variable>
-      <xsl:text>You can receive emails with richer data by subscribing to HTML-formatted emails.&#xA;</xsl:text>
+      <xsl:text>Você pode receber e-mails com aparência mais amigável assinando e-mails no formato HTML.&#xA;</xsl:text>
       <xsl:call-template name="SectionDivider" />
         <xsl:choose>
-            <xsl:when test="Action = 'Abandoned'"><!-- _locID_text="TitleAbandoned" --><xsl:value-of select="$changedBy"/> has abandoned the code review.</xsl:when>
-            <xsl:when test="Action = 'Completed'"><!-- _locID_text="TitleCompleted" --><xsl:value-of select="$changedBy"/> has closed the code review.</xsl:when>
-            <xsl:when test="Action = 'Declined'"><!-- _locID_text="TitleDeclined" --><xsl:value-of select="$changedBy"/> has declined <xsl:value-of select="$closingReason" />.</xsl:when>
+            <xsl:when test="Action = 'Abandoned'"><!-- _locID_text="TitleAbandoned" --><xsl:value-of select="$changedBy"/> abandonou o Code Review.</xsl:when>
+            <xsl:when test="Action = 'Completed'"><!-- _locID_text="TitleCompleted" --><xsl:value-of select="$changedBy"/> fechou o Code Review.</xsl:when>
+            <xsl:when test="Action = 'Declined'"><!-- _locID_text="TitleDeclined" --><xsl:value-of select="$changedBy"/> negou <xsl:value-of select="$closingReason" />.</xsl:when>
             <xsl:when test="Action = 'Discussion'">
                 <xsl:variable name="newCommentCount" select="count(Discussions/ReviewDiscussion/Comments//ReviewComment[@IsNew])" />
                 <xsl:variable name="commentText">
                     <xsl:choose>
-                        <xsl:when test="$newCommentCount = 1"><!-- _locID_text="Comment1" --><xsl:value-of select="$newCommentCount" /> comment</xsl:when>
-                        <xsl:when test="$newCommentCount > 1"><!-- _locID_text="CommentN" --><xsl:value-of select="$newCommentCount" /> comments</xsl:when>
+                        <xsl:when test="$newCommentCount = 1"><!-- _locID_text="Comment1" --><xsl:value-of select="$newCommentCount" /> comentário</xsl:when>
+                        <xsl:when test="$newCommentCount > 1"><!-- _locID_text="CommentN" --><xsl:value-of select="$newCommentCount" /> comentários</xsl:when>
                     </xsl:choose>
                 </xsl:variable>
                 <xsl:choose>
-                    <xsl:when test="$newCommentCount > 0"><!-- _locID_text="TitleDiscussion1" --><xsl:value-of select="$changedBy"/> has posted <xsl:value-of select="$commentText" />.</xsl:when>
-                    <xsl:otherwise><!-- _locID_text="TitleDiscussion2" --><xsl:value-of select="$changedBy"/> has posted feedback.</xsl:otherwise>
+                    <xsl:when test="$newCommentCount > 0"><!-- _locID_text="TitleDiscussion1" --><xsl:value-of select="$changedBy"/> postou <xsl:value-of select="$commentText" />.</xsl:when>
+                    <xsl:otherwise><!-- _locID_text="TitleDiscussion2" --><xsl:value-of select="$changedBy"/> postou um feedback.</xsl:otherwise>
                 </xsl:choose>
             </xsl:when>
-            <xsl:when test="Action = 'Requested'"><!-- _locID_text="TitleRequested" -->Your feedback has been requested by <xsl:value-of select="RequestedBy"/>.</xsl:when>
-            <xsl:when test="Action = 'Accepted'"><!-- _locID_text="TitleAccepted" --><xsl:value-of select="ChangedBy"/> has accepted.</xsl:when>
+            <xsl:when test="Action = 'Requested'"><!-- _locID_text="TitleRequested" -->O seu feedback foi solicitado por <xsl:value-of select="RequestedBy"/>.</xsl:when>
+            <xsl:when test="Action = 'Accepted'"><!-- _locID_text="TitleAccepted" --><xsl:value-of select="ChangedBy"/> aceitou.</xsl:when>
             <xsl:when test="Action = 'Reviewed'">
                 <xsl:choose>
                   <xsl:when test="$reason = 'LooksGood'">
-                    <xsl:value-of select="ChangedBy"/><!-- _locID_text="ReviewerFinishedLooksGood" --> has finished (looks good).
+                    <xsl:value-of select="ChangedBy"/><!-- _locID_text="ReviewerFinishedLooksGood" --> finalizou (parece bom).
                   </xsl:when>
                   <xsl:when test="$reason = 'WithComments'">
-                    <xsl:value-of select="ChangedBy"/><!-- _locID_text="ReviewerFinishedWithComments" --> has finished (with comments).
+                    <xsl:value-of select="ChangedBy"/><!-- _locID_text="ReviewerFinishedWithComments" --> finalizou (com ressalvas).
                   </xsl:when>
                   <xsl:when test="$reason = 'NeedsWork'">
-                    <xsl:value-of select="ChangedBy"/><!-- _locID_text="ReviewerFinishedNeedsWork" --> has finished (needs work).
+                    <xsl:value-of select="ChangedBy"/><!-- _locID_text="ReviewerFinishedNeedsWork" --> finalizou (precisa de mais trabalho).
                   </xsl:when>
                   <xsl:otherwise>
-                    <xsl:value-of select="ChangedBy"/><!-- _locID_text="ReviewerFinished" --> has finished.
+                    <xsl:value-of select="ChangedBy"/><!-- _locID_text="ReviewerFinished" --> finalizou.
                   </xsl:otherwise>
                 </xsl:choose>
             </xsl:when>
@@ -64,14 +64,14 @@
                   <xsl:choose>
                       <xsl:when test="$added = $subscriber">
                           <xsl:choose>
-                              <xsl:when test="$added = $changedBy"><!-- _locID_text="TitleAdded" -->Your feedback has been requested.</xsl:when>
-                              <xsl:otherwise><!-- _locID_text="TitleAddedBy" -->Your feedback has been requested by <xsl:value-of select="$changedBy"/>.</xsl:otherwise>
+                              <xsl:when test="$added = $changedBy"><!-- _locID_text="TitleAdded" -->Seu feedback foi solicitado.</xsl:when>
+                              <xsl:otherwise><!-- _locID_text="TitleAddedBy" -->Seu feedback foi solicitado por <xsl:value-of select="$changedBy"/>.</xsl:otherwise>
                           </xsl:choose>
                       </xsl:when>
                       <xsl:otherwise>
                           <xsl:choose>
-                              <xsl:when test="$added = $changedBy"><!-- _locID_text="TitleAdded1" --><xsl:value-of select="$added"/> has been added.</xsl:when>
-                              <xsl:otherwise><!-- _locID_text="TitleAddedBy1" --><xsl:value-of select="$added"/> has been added by <xsl:value-of select="$changedBy"/>.</xsl:otherwise>
+                              <xsl:when test="$added = $changedBy"><!-- _locID_text="TitleAdded1" --><xsl:value-of select="$added"/> foi adicionado.</xsl:when>
+                              <xsl:otherwise><!-- _locID_text="TitleAddedBy1" --><xsl:value-of select="$added"/> foi adicionado por <xsl:value-of select="$changedBy"/>.</xsl:otherwise>
                           </xsl:choose>
                       </xsl:otherwise>
                   </xsl:choose>
@@ -80,14 +80,14 @@
                 <xsl:choose>
                     <xsl:when test="$removed = $subscriber">
                         <xsl:choose>
-                            <xsl:when test="$removed = $changedBy"><!-- _locID_text="TitleRemoved" -->You have been removed <xsl:value-of select="$closingReason" />.</xsl:when>
-                            <xsl:otherwise><!-- _locID_text="TitleRemovedBy" -->You have been removed by <xsl:value-of select="$changedBy"/> <xsl:value-of select="$closingReason" />.</xsl:otherwise>
+                            <xsl:when test="$removed = $changedBy"><!-- _locID_text="TitleRemoved" -->Você foi removido <xsl:value-of select="$closingReason" />.</xsl:when>
+                            <xsl:otherwise><!-- _locID_text="TitleRemovedBy" -->Você foi removido por <xsl:value-of select="$changedBy"/> <xsl:value-of select="$closingReason" />.</xsl:otherwise>
                         </xsl:choose>
                     </xsl:when>
                     <xsl:otherwise>
                         <xsl:choose>
-                            <xsl:when test="$removed = $changedBy"><!-- _locID_text="TitleRemoved1" --><xsl:value-of select="$removed"/> has been removed <xsl:value-of select="$closingReason" />.</xsl:when>
-                            <xsl:otherwise><!-- _locID_text="TitleRemovedBy1" --><xsl:value-of select="$removed"/> has been removed by <xsl:value-of select="$changedBy"/> <xsl:value-of select="$closingReason" />.</xsl:otherwise>
+                            <xsl:when test="$removed = $changedBy"><!-- _locID_text="TitleRemoved1" --><xsl:value-of select="$removed"/> foi removido <xsl:value-of select="$closingReason" />.</xsl:when>
+                            <xsl:otherwise><!-- _locID_text="TitleRemovedBy1" --><xsl:value-of select="$removed"/> foi removido por <xsl:value-of select="$changedBy"/> <xsl:value-of select="$closingReason" />.</xsl:otherwise>
                         </xsl:choose>
                     </xsl:otherwise>
                 </xsl:choose>
@@ -113,19 +113,19 @@
         </xsl:for-each>
       </xsl:if>
       <xsl:call-template name="SectionDivider" />
-      <!-- _locID_text="Reviewers" -->Reviewers
+      <!-- _locID_text="Reviewers" -->Revisores
       <xsl:text>&#xA;</xsl:text>
       <xsl:choose>
         <xsl:when test="count(Reviewers/Reviewer[@Status != 'Declined' and @Status != 'Removed']) > 0">
           <xsl:apply-templates select="Reviewers/Reviewer[@Status != 'Declined' and @Status != 'Removed']"/>
         </xsl:when>
         <xsl:otherwise>
-          <!-- _locID_text="None" -->None
+          <!-- _locID_text="None" -->Nenhum
           <xsl:text>&#xA;</xsl:text>
         </xsl:otherwise>
       </xsl:choose>
       <xsl:text>&#xA;</xsl:text>
-      <!-- _locID_text="FilesToReview" -->Files to Review
+      <!-- _locID_text="FilesToReview" -->Arquivos a Revisar
       <xsl:text>&#xA;</xsl:text>
         <xsl:choose>
             <xsl:when test="count(ReviewContext/Changes/Change) > 0">
@@ -148,7 +148,7 @@
                 </xsl:for-each>
             </xsl:when>
             <xsl:otherwise>
-                <!-- _locID_text="None" -->None
+                <!-- _locID_text="None" -->Nenhum
             </xsl:otherwise>
         </xsl:choose>
         <!-- Apply the standard TFS footer -->
@@ -162,21 +162,21 @@
 
     <xsl:template match="Reviewer">
         <xsl:choose>
-            <xsl:when test="@Status = 'NotStarted' or @Status = 'Added'"><!-- _locID_text="ReviewerRequested" --><xsl:value-of select="@Name"/> has not accepted.</xsl:when>
-            <xsl:when test="@Status = 'Accepted'"><!-- _locID_text="ReviewerAccepted" --><xsl:value-of select="@Name"/> has accepted.</xsl:when>
+            <xsl:when test="@Status = 'NotStarted' or @Status = 'Added'"><!-- _locID_text="ReviewerRequested" --><xsl:value-of select="@Name"/> não aceitou.</xsl:when>
+            <xsl:when test="@Status = 'Accepted'"><!-- _locID_text="ReviewerAccepted" --><xsl:value-of select="@Name"/> aceitou.</xsl:when>
           <xsl:when test="@Status = 'Reviewed'">
             <xsl:choose>
               <xsl:when test="@Resolution = 'LooksGood'">
-                <!-- _locID_text="ReviewerClosedLooksGood" --><xsl:value-of select="@Name"/> has finished (Looks Good).
+                <!-- _locID_text="ReviewerClosedLooksGood" --><xsl:value-of select="@Name"/> finalizou (Parece Bom).
               </xsl:when>
               <xsl:when test="@Resolution = 'WithComments'">
-                <!-- _locID_text="ReviewerClosedWithComments" --><xsl:value-of select="@Name"/> has finished (With Comments).
+                <!-- _locID_text="ReviewerClosedWithComments" --><xsl:value-of select="@Name"/> finalizou (Com Ressalvas).
               </xsl:when>
               <xsl:when test="@Resolution = 'NeedsWork'">
-                <!-- _locID_text="ReviewerClosedNeedsWork" --><xsl:value-of select="@Name"/> has finished (Needs Work).
+                <!-- _locID_text="ReviewerClosedNeedsWork" --><xsl:value-of select="@Name"/> finalizou (Precisa de mais trabalho).
               </xsl:when>
               <xsl:otherwise>
-                <!-- _locID_text="ReviewerClosed" --><xsl:value-of select="@Name"/> has finished.
+                <!-- _locID_text="ReviewerClosed" --><xsl:value-of select="@Name"/> finalizou.
               </xsl:otherwise>
             </xsl:choose>
           </xsl:when>
@@ -197,7 +197,7 @@
     <!-- Template for loading Visual Studio -->
     <xsl:template name="VisualStudioLink">
         <xsl:param name="uri"/>
-        <!-- _locID_text="OpenInVS" -->Copy and paste the following into your web browser to open the code review in Visual Studio
+        <!-- _locID_text="OpenInVS" -->Copie e cole a URL a seguir no seu navegador para abrir o Code Review no Visual Studio
         <xsl:text>&#xA;</xsl:text>
         <xsl:value-of select="$uri" />
     </xsl:template>

@@ -10,16 +10,16 @@
         <!-- _locID_text="TeamProjectCollection" -->Team Project Collection: <xsl:value-of select="@TeamProjectCollectionUrl" />
         <xsl:text>&#xA;</xsl:text>
 
-        <!-- _locID_text="EventAction" -->Action: <xsl:value-of select="@ChangedType" />
+        <!-- _locID_text="EventAction" -->Ação: <xsl:value-of select="@ChangedType" />
         <xsl:text>&#xA;</xsl:text>
 
-        <!-- _locID_text="ResourceRype" -->Resource Type: <xsl:value-of select="@ResourceType" />
+        <!-- _locID_text="ResourceRype" -->Tipo de Recurso: <xsl:value-of select="@ResourceType" />
         <xsl:text>&#xA;</xsl:text>
 
-        <!-- _locID_text="ChangedBy" -->Changed By: <xsl:value-of select="@ChangedBy" />
+        <!-- _locID_text="ChangedBy" -->Modificado por: <xsl:value-of select="@ChangedBy" />
         <xsl:text>&#xA;</xsl:text>
         
-        <!-- _locID_text="Name" -->Name: <xsl:value-of select="@Name" /> (<xsl:value-of select="@Uri" />)
+        <!-- _locID_text="Name" -->Nome: <xsl:value-of select="@Name" /> (<xsl:value-of select="@Uri" />)
         <xsl:text>&#xA;</xsl:text>
         
         <xsl:choose>
@@ -38,8 +38,8 @@
                 <xsl:for-each select="PropertyChanges/PropertyChange">
                     <xsl:sort select="@Name"/>
                     <xsl:value-of select="@Name" /><xsl:text>:&#xA;</xsl:text>
-                    <xsl:text>&#160;&#160;&#160;&#160;Old Value:</xsl:text><xsl:value-of select="b:OldValue" /><xsl:text>&#xA;</xsl:text>
-                    <xsl:text>&#160;&#160;&#160;&#160;New Value:</xsl:text><xsl:value-of select="b:NewValue" /><xsl:text>&#xA;</xsl:text>
+                    <xsl:text>&#160;&#160;&#160;&#160;Valor Anterior:</xsl:text><xsl:value-of select="b:OldValue" /><xsl:text>&#xA;</xsl:text>
+                    <xsl:text>&#160;&#160;&#160;&#160;Novo Valor:</xsl:text><xsl:value-of select="b:NewValue" /><xsl:text>&#xA;</xsl:text>
                 </xsl:for-each>
             </xsl:when>
 

@@ -23,7 +23,7 @@
                 </td>
             </tr>
             <tr>
-                <td class="PropName" _locID="EventAction">Action: </td>
+                <td class="PropName" _locID="EventAction">Ação: </td>
                 <td class="PropValue">
                     <b>
                         <xsl:value-of select="@ChangedType"/>
@@ -31,7 +31,7 @@
                 </td>
             </tr>
             <tr>
-                <td class="PropName" _locID="ResourceType">Resource type: </td>
+                <td class="PropName" _locID="ResourceType">Tipo de Recurso: </td>
                 <td class="PropValue">
                     <b>
                         <xsl:value-of select="@ResourceType"/>
@@ -39,13 +39,13 @@
                 </td>
             </tr>
             <tr>
-                <td class="PropName" _locID="Name">Name: </td>
+                <td class="PropName" _locID="Name">Nome: </td>
                 <td class="PropValue">
                     <xsl:value-of select="@Name"/> (<xsl:value-of select="@Uri" />)
                 </td>
             </tr>
             <tr>
-                <td class="PropName" _locID="ChangedBy">Changed by: </td>
+                <td class="PropName" _locID="ChangedBy">Modificado por: </td>
                 <td class="PropValue">
                     <xsl:value-of select="@ChangedBy"/>
                 </td>
@@ -77,13 +77,13 @@
                             </td>
                         </tr>
                         <tr>
-                            <td class="PropName">&#160;&#160;&#160;&#160;Old Value:</td>
+                            <td class="PropName">&#160;&#160;&#160;&#160;Valor Anterior:</td>
                             <td class="PropValue">
                                 <xsl:value-of select="b:OldValue" />
                             </td>
                         </tr>
                         <tr>
-                            <td class="PropName">&#160;&#160;&#160;&#160;New Value:</td>
+                            <td class="PropName">&#160;&#160;&#160;&#160;Novo Valor:</td>
                             <td class="PropValue">
                                 <xsl:value-of select="b:NewValue" />
                             </td>

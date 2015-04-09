@@ -16,7 +16,7 @@
                     } 
                 </style>
                 <title>
-                    Code Review of <xsl:value-of select="/CodeReviewChangedEvent/SourceWorkItem/Title"/>
+                    Code Review de <xsl:value-of select="/CodeReviewChangedEvent/SourceWorkItem/Title"/>
                 </title>
             </head>
             <body>
@@ -38,7 +38,7 @@
         <xsl:variable name="closingReason">
             <xsl:if test="count(ClosingComment) > 0 and string-length(ClosingComment) > 0">
                 <span _locID="ClosingReason">
-                    (Reason: <xsl:value-of select="ClosingComment" />)
+                    (Razão: <xsl:value-of select="ClosingComment" />)
                 </span>
             </xsl:if>
         </xsl:variable>
@@ -48,21 +48,21 @@
                     <span _locID="TitleAbandoned">
                         <strong>
                             <xsl:value-of select="$changedBy"/>
-                        </strong> has abandoned the review.
+                        </strong> abandonou a revisão.
                     </span>
                 </xsl:when>
                 <xsl:when test="Action = 'Completed'">
                     <span _locID="TitleCompleted">
                         <strong>
                             <xsl:value-of select="$changedBy"/>
-                        </strong> has closed the review.
+                        </strong> fechou a revisão.
                     </span>
                 </xsl:when>
                 <xsl:when test="Action = 'Declined'">
                     <span _locID="TitleDeclined">
                         <strong>
                             <xsl:value-of select="$changedBy"/>
-                        </strong> has declined <xsl:value-of select="$closingReason" />.
+                        </strong> recusou <xsl:value-of select="$closingReason" />.
                     </span>
                 </xsl:when>
                 <xsl:when test="Action = 'Discussion'">
@@ -70,9 +70,9 @@
                     <xsl:variable name="commentText">
                         <xsl:choose>
                             <xsl:when test="$newCommentCount = 1">
-                                <!-- _locID_text="Comment1" --><xsl:value-of select="$newCommentCount" /> comment</xsl:when>
+                                <!-- _locID_text="Comment1" --><xsl:value-of select="$newCommentCount" /> comentário</xsl:when>
                             <xsl:when test="$newCommentCount > 1">
-                                <!-- _locID_text="CommentN" --><xsl:value-of select="$newCommentCount" /> comments</xsl:when>
+                                <!-- _locID_text="CommentN" --><xsl:value-of select="$newCommentCount" /> comentários</xsl:when>
                         </xsl:choose>
                     </xsl:variable>
                     <xsl:choose>
@@ -80,28 +80,28 @@
                             <span _locID="TitleDiscussion1">
                                 <strong>
                                     <xsl:value-of select="$changedBy"/>
-                                </strong> has posted <xsl:value-of select="$commentText" />.
+                                </strong> postou <xsl:value-of select="$commentText" />.
                             </span>
                         </xsl:when>
                         <xsl:otherwise>
                             <span _locID="TitleDiscussion2">
                                 <strong>
                                     <xsl:value-of select="$changedBy"/>
-                                </strong> has posted feedback.
+                                </strong> postou um feedback.
                             </span>
                         </xsl:otherwise>
                     </xsl:choose>
                 </xsl:when>
                 <xsl:when test="Action = 'Requested'">
                     <span _locID="TitleRequested">
-                        Your feedback has been requested by <strong><xsl:value-of select="RequestedBy"/></strong>.
+                        O seu feedback foi solicitado por <strong><xsl:value-of select="RequestedBy"/></strong>.
                     </span>
                 </xsl:when>
                 <xsl:when test="Action = 'Accepted'">
                     <span _locID="TitleAccepted">
                         <strong>
                             <xsl:value-of select="ChangedBy"/>
-                        </strong> has accepted.
+                        </strong> aceitou.
                     </span>
                 </xsl:when>
                 <xsl:when test="Action = 'Reviewed'">
@@ -111,16 +111,16 @@
                         </strong> 
                         <xsl:choose>
                             <xsl:when test="$reason = 'LooksGood'">
-                                <span _locID="ReviewerFinishedLooksGood"> has finished (looks good)</span>
+                                <span _locID="ReviewerFinishedLooksGood"> finalizou (parece bom)</span>
                             </xsl:when>
                             <xsl:when test="$reason = 'WithComments'">
-                                <span _locID="ReviewerFinishedWithComments"> has finished (with comments)</span>
+                                <span _locID="ReviewerFinishedWithComments"> finalizou (com ressalvas)</span>
                             </xsl:when>
                             <xsl:when test="$reason = 'NeedsWork'">
-                                <span _locID="ReviewerFinishedNeedsWork"> has finished (needs work)</span>
+                                <span _locID="ReviewerFinishedNeedsWork"> finalizou (precisa de mais trabalho)</span>
                             </xsl:when>
                             <xsl:otherwise>
-                                <span _locID="ReviewerFinished"> has finished</span>
+                                <span _locID="ReviewerFinished"> finalizou</span>
                             </xsl:otherwise>
                         </xsl:choose>.
                     </span>
@@ -131,12 +131,12 @@
                             <xsl:choose>
                                 <xsl:when test="$added = $changedBy">
                                     <span _locID="TitleAdded">
-                                        Your feedback has been requested.
+                                        O seu feedback foi solicitado.
                                     </span>
                                 </xsl:when>
                                 <xsl:otherwise>
                                     <span _locID="TitleAddedBy">
-                                        Your feedback has been requested by <strong><xsl:value-of select="$changedBy"/></strong>.
+                                        O seu feedback foi solicitado por <strong><xsl:value-of select="$changedBy"/></strong>.
                                     </span>
                                 </xsl:otherwise>
                             </xsl:choose>
@@ -147,14 +147,14 @@
                                     <span _locID="TitleAdded1">
                                         <strong>
                                             <xsl:value-of select="$added"/>
-                                        </strong> has been added.
+                                        </strong> foi adicionado.
                                     </span>
                                 </xsl:when>
                                 <xsl:otherwise>
                                     <span _locID="TitleAddedBy1">
                                         <strong>
                                             <xsl:value-of select="$added"/>
-                                        </strong> has been added by <strong><xsl:value-of select="$changedBy"/></strong>.
+                                        </strong> foi adicionado por <strong><xsl:value-of select="$changedBy"/></strong>.
                                     </span>
                                 </xsl:otherwise>
                             </xsl:choose>
@@ -167,12 +167,12 @@
                             <xsl:choose>
                                 <xsl:when test="$removed = $changedBy">
                                     <span _locID="TitleRemoved">
-                                        You have been removed <xsl:value-of select="$closingReason" />.
+                                        Você foi removido <xsl:value-of select="$closingReason" />.
                                     </span>
                                 </xsl:when>
                                 <xsl:otherwise>
                                     <span _locID="TitleRemovedBy">
-                                        You have been removed by <strong>
+                                        Você foi removido por <strong>
                                             <xsl:value-of select="$changedBy"/>
                                         </strong> <xsl:value-of select="$closingReason" />.
                                     </span>
@@ -185,14 +185,14 @@
                                     <span _locID="TitleRemoved1">
                                         <strong>
                                             <xsl:value-of select="$removed"/>
-                                        </strong> has been removed <xsl:value-of select="$closingReason" />.
+                                        </strong> foi removido <xsl:value-of select="$closingReason" />.
                                     </span>
                                 </xsl:when>
                                 <xsl:otherwise>
                                     <span _locID="TitleRemovedBy1">
                                         <strong>
                                             <xsl:value-of select="$removed"/>
-                                        </strong> has been removed by <strong>
+                                        </strong> foi removido por <strong>
                                             <xsl:value-of select="$changedBy"/>
                                         </strong> <xsl:value-of select="$closingReason" />.
                                     </span>
@@ -208,21 +208,21 @@
                         <xsl:attribute name="href">
                             <xsl:value-of select="Uri" />
                         </xsl:attribute>
-                        <!-- _locID_text="OpenInVS" -->Open Changes and Comments in Visual Studio</a>
+                        <!-- _locID_text="OpenInVS" -->Abrir mudanças e comentários no Visual Studio</a>
                     |
                     <a>
                         <xsl:attribute name="href">
                             <xsl:value-of select="WebAccessUri" />
                         </xsl:attribute>
-                        <!-- _locID_text="OpenInTswa" -->Open Changes in Web Access</a>
+                        <!-- _locID_text="OpenInTswa" -->Abrir mudanças no Web Access</a>
                 </span>
             </div>
           <div style="margin-left:0em">
-            Review requested by <xsl:value-of select="RequestedBy"/>
+            Review solicitada por <xsl:value-of select="RequestedBy"/>
           </div>
         </p>
         <h2 style="font-size: 12pt; margin-bottom: 0em;">
-            <span _locID="Reviewers">Reviewers</span>
+            <span _locID="Reviewers">Revisores</span>
         </h2>
         <div style="margin-left:1em">
             <xsl:choose>
@@ -239,12 +239,12 @@
                     </table>
                 </xsl:when>
                 <xsl:otherwise>
-                    <span _locID="None">None</span>
+                    <span _locID="None">Nenhum</span>
                 </xsl:otherwise>
             </xsl:choose>
         </div>
         <h2 style="font-size: 12pt; margin-bottom: 0em;">
-            <span _locID="AssociatedWorkItems">Related Work Items</span>
+            <span _locID="AssociatedWorkItems">Work Items Relacionados</span>
         </h2>
         <div style="margin-left:1em">
             <xsl:choose>
@@ -257,12 +257,12 @@
                     </table>
                 </xsl:when>
                 <xsl:otherwise>
-                    <span _locID="None">None</span>
+                    <span _locID="None">Nenhum</span>
                 </xsl:otherwise>
             </xsl:choose>
         </div>
         <h2 style="font-size: 12pt; margin-bottom: 0em;">
-            <span _locID="OverallComments">Overall Comments</span>
+            <span _locID="OverallComments">Comentários Gerais</span>
         </h2>
         <div style="margin-left:1em">
             <xsl:choose>
@@ -272,12 +272,12 @@
                     </xsl:for-each>
                 </xsl:when>
                 <xsl:otherwise>
-                    <span _locID="None">None</span>
+                    <span _locID="None">Nenhum</span>
                 </xsl:otherwise>
             </xsl:choose>
         </div>        
         <h2 style="font-size: 12pt; margin-bottom: 0em;">
-            <span _locID="FilesToReview">Files to Review and Comments</span>
+            <span _locID="FilesToReview">Arquivos a serem revisados e seus comentários</span>
         </h2>
         <div style="margin-left:1em">
             <xsl:choose>
@@ -307,7 +307,7 @@
                     </xsl:for-each>
                 </xsl:when>
                 <xsl:otherwise>
-                    <span _locID="None">None</span>
+                    <span _locID="None">Nenhum</span>
                 </xsl:otherwise>
             </xsl:choose>
         </div>
@@ -328,27 +328,27 @@
             <td>
                 <xsl:choose>
                     <xsl:when test="@Status = 'NotStarted' or @Status = 'Added'">
-                        <span _locID="ReviewerRequested">Requested</span>
+                        <span _locID="ReviewerRequested">Solicitado</span>
                     </xsl:when>
                     <xsl:when test="@Status = 'Accepted'">
-                        <span _locID="ReviewerAccepted">Accepted</span>
+                        <span _locID="ReviewerAccepted">Aceito</span>
                     </xsl:when>
                   <xsl:when test="@Status = 'Declined'">
-                    <span _locID="ReviewerDeclined">Declined</span>
+                    <span _locID="ReviewerDeclined">Negado</span>
                   </xsl:when>
                   <xsl:when test="@Status = 'Reviewed'">
                         <xsl:choose>
                             <xsl:when test="@Resolution = 'LooksGood'">
-                                <span _locID="ReviewerClosedLooksGood">Finished (Looks Good)</span>
+                                <span _locID="ReviewerClosedLooksGood">Finalizado (Parece Bom)</span>
                             </xsl:when>
                             <xsl:when test="@Resolution = 'WithComments'">
-                                <span _locID="ReviewerClosedWithComments">Finished (With Comments)</span>
+                                <span _locID="ReviewerClosedWithComments">Finalizado (Com Ressalvas)</span>
                             </xsl:when>
                             <xsl:when test="@Resolution = 'NeedsWork'">
-                                <span _locID="ReviewerClosedNeedsWork">Finished (Needs Work)</span>
+                                <span _locID="ReviewerClosedNeedsWork">Finalizado (Precisa de mais trabalho)</span>
                             </xsl:when>
                             <xsl:otherwise>
-                                <span _locID="ReviewerClosed">Finished</span>
+                                <span _locID="ReviewerClosed">Finalizado</span>
                             </xsl:otherwise>
                         </xsl:choose>
                     </xsl:when>
@@ -393,8 +393,8 @@
                 <xsl:when test="@ChangeType='Edit'"></xsl:when>
                 <xsl:when test="@ChangeType='Delete'"></xsl:when>
                 <xsl:when test="contains(@ChangeType,'Add')"> [+]</xsl:when>
-                <xsl:when test="contains(@ChangeType,'Rename')"> [Renamed]</xsl:when>
-                <xsl:otherwise> [Other]</xsl:otherwise>
+                <xsl:when test="contains(@ChangeType,'Rename')"> [Renomeado]</xsl:when>
+                <xsl:otherwise> [Outro]</xsl:otherwise>
             </xsl:choose>
         </span>
     </xsl:template>
@@ -415,7 +415,7 @@
             <div>
                 <xsl:apply-templates select="Text" />
             </div>
-            <xsl:if test ="../../@StartLine > 0">Line <xsl:value-of select="../../@StartLine"/> | </xsl:if><xsl:value-of select="@PublishDateText"/>
+            <xsl:if test ="../../@StartLine > 0">Linha <xsl:value-of select="../../@StartLine"/> | </xsl:if><xsl:value-of select="@PublishDateText"/>
             <xsl:if test ="count(Replies/ReviewComment)>0">
                 <div style="border-left: 4px solid #ccc; padding-left: 1em;">
                     <xsl:apply-templates select="Replies/*" />

@@ -69,7 +69,7 @@
 
         </style>
         <title>
-          <!-- _locID_text="push_notification_for_repository"--> Push Notification for repository <xsl:value-of select="/GitPushEvent/PushNotification/RepositoryName"/>
+          <!-- _locID_text="push_notification_for_repository"--> Notificação de Push para o Repositório <xsl:value-of select="/GitPushEvent/PushNotification/RepositoryName"/>
         </title>
       </head>
       <body>
@@ -84,22 +84,22 @@
       <xsl:value-of select="$numRefsUpdated"/>
       <xsl:choose>
         <xsl:when test="$numRefsUpdated > 1">
-          <!-- _locID_text="references_were"--> references were
+          <!-- _locID_text="references_were"--> referências foram
         </xsl:when>
         <xsl:otherwise>
-          <!-- _locID_text="reference_was"--> reference was
+          <!-- _locID_text="reference_was"--> referência é
         </xsl:otherwise>
       </xsl:choose>
-      <!-- _locID_text="pushed_to_the"--> pushed to the <xsl:call-template name="link">
+      <!-- _locID_text="pushed_to_the"--> push realizado para <xsl:call-template name="link">
         <xsl:with-param name="format" select="'html'"/>
         <xsl:with-param name="link" select="/GitPushEvent/RepositoryUri"/>
         <xsl:with-param name="displayText" select="/GitPushEvent/PushNotification/RepositoryName"/>
       </xsl:call-template>
-      <!-- _locID_text="repository"--> repository.
+      <!-- _locID_text="repository"--> repositório.
     </h1>
     <p>
       <span class="subdued">
-        <!-- _locID_text="pushed_by"--> Pushed by </span>
+        <!-- _locID_text="pushed_by"--> Push realizado por </span>
       <a>
         <xsl:attribute name="HREF">mailto:<xsl:value-of select="/GitPushEvent/PushNotification/PusherEmail"/></xsl:attribute>
         <xsl:attribute name="title">mailto:<xsl:value-of select="/GitPushEvent/PushNotification/PusherEmail"/></xsl:attribute>
@@ -121,7 +121,7 @@
             </xsl:call-template> 
             <xsl:choose>
               <xsl:when test="OldId = '0000000000000000000000000000000000000000'">
-                <!-- _locID_text="was_created_at"--> was created at
+                <!-- _locID_text="was_created_at"--> foi criado em
                 <xsl:call-template name="link">
                   <xsl:with-param name="format" select="'html'"/>
                   <xsl:with-param name="link" select="NewIdUrl"/>
@@ -129,10 +129,10 @@
                 </xsl:call-template>.
               </xsl:when>
               <xsl:when test="NewId = '0000000000000000000000000000000000000000'">
-                <!-- _locID_text="was_deleted"--> was deleted.
+                <!-- _locID_text="was_deleted"--> foi excluído.
               </xsl:when>
               <xsl:otherwise>
-                <!-- _locID_text="was_updated_to"--> was updated to
+                <!-- _locID_text="was_updated_to"--> foi atualizado para
                 <xsl:call-template name="link">
                   <xsl:with-param name="format" select="'html'"/>
                   <xsl:with-param name="link" select="NewIdUrl"/>
@@ -166,7 +166,7 @@
         <xsl:with-param name="link" select="RefUrl"/>
         <xsl:with-param name="displayText" select="RefName"/>
       </xsl:call-template>
-        <!-- _locID_text="was_updated_to"--> was updated to
+        <!-- _locID_text="was_updated_to"--> foi atualizado para
         <xsl:call-template name="link">
           <xsl:with-param name="format" select="'html'"/>
           <xsl:with-param name="link" select="NewIdUrl"/>
@@ -178,10 +178,10 @@
         <xsl:value-of select="TotalCommits"/>
         <xsl:choose>
           <xsl:when test="TotalCommits = 1">
-            <!-- _locID_text="commit_included_in_this_change"--> commit included in this change.
+            <!-- _locID_text="commit_included_in_this_change"--> commit incluído nesta mudança.
           </xsl:when>
           <xsl:otherwise>
-            <!-- _locID_text="commits_included_in_this_change"--> commits included in this change.
+            <!-- _locID_text="commits_included_in_this_change"--> commits incluídos nesta mudança.
           </xsl:otherwise>
         </xsl:choose>
         <br/>
@@ -204,7 +204,7 @@
             <xsl:if test="$numCommitDetails > 5">
               <li>
                 <span class="subdued">
-                  <!-- _locID_text="authored_by"--> Authored By </span> <xsl:value-of select="Author"/> - <xsl:value-of select="AuthorTimeString"/>
+                  <!-- _locID_text="authored_by"--> Autoria de </span> <xsl:value-of select="Author"/> - <xsl:value-of select="AuthorTimeString"/>
               <br/>              
               </li>         
             </xsl:if>
@@ -225,7 +225,7 @@
             </h2>
             <p>
               <span class="subdued">
-                <!-- _locID_text="authored_by"--> Authored By </span>
+                <!-- _locID_text="authored_by"--> Autoria de </span>
               <xsl:value-of select="Author"/>
               <span class="subdued">
                 - <xsl:value-of select="AuthorTimeString"/><br/>              
@@ -239,7 +239,7 @@
             </p>            
             <xsl:if test="count(CommitDiffs/GitDiffEntryData) > 0">
               <h3>
-                <!-- _locID_text="Changes"--> Changes
+                <!-- _locID_text="Changes"--> Mudanças
                 <br/>
               </h3>
               
@@ -249,11 +249,11 @@
                     <span class="shortIdSpan">
                       <xsl:choose>
                         <xsl:when test="ChangeType = 'Add'">
-                          <!-- _locID_text="add"--> add </xsl:when>
+                          <!-- _locID_text="add"--> adição </xsl:when>
                         <xsl:when test="ChangeType = 'Delete'">
-                          <!-- _locID_text="delete"--> delete </xsl:when>
+                          <!-- _locID_text="delete"--> exclusão </xsl:when>
                         <xsl:otherwise>
-                          <!-- _locID_text="edit"--> edit </xsl:otherwise>
+                          <!-- _locID_text="edit"--> edição </xsl:otherwise>
                       </xsl:choose>
                     </span>
                     <xsl:call-template name="link">
@@ -271,7 +271,7 @@
           </xsl:for-each>
         </xsl:when>
         <xsl:when test="TotalCommits > $numCommitDetails">
-          <!-- _locID_text="view_all"--> View all <xsl:call-template name="link">
+          <!-- _locID_text="view_all"--> Ver tudo <xsl:call-template name="link">
             <xsl:with-param name="format" select="'html'"/>
             <xsl:with-param name="link" select="RefUrl"/>
             <xsl:with-param name="displayText" select="TotalCommits"/>

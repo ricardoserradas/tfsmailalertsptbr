@@ -215,7 +215,7 @@
                 <!-- _locID_text="NewValueText2"-->Novo Valor
               </td>
               <td class="ColHeading">
-                <!-- _locID_text="OldValueText2"-->Valor Antigo
+                <!-- _locID_text="OldValueText2"-->Valor Anterior
               </td>
             </tr>
 

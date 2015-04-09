@@ -12,7 +12,7 @@
     <xsl:value-of select="$textSeparatorLong"/>
     <xsl:text>&#xA;</xsl:text>
     <!-- _locID_text="TeamProject" -->Team Project: <xsl:value-of select="TeamProject"/>
-    <!-- _locID_text="BuildDefinition" -->Build Definition: <xsl:value-of select="DefinitionPath"/>
+    <!-- _locID_text="BuildDefinition" -->Definição de Build: <xsl:value-of select="DefinitionPath"/>
     <xsl:text>&#xA;</xsl:text>
     <xsl:call-template name="footer">
       <xsl:with-param name="format" select="'text'"/>

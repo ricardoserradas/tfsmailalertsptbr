@@ -17,7 +17,7 @@
       <table class="WithBorder">
         <tr>
           <td class="PropName">
-            <!-- _locID_text="StartTime" -->Start Time:
+            <!-- _locID_text="StartTime" -->Data/Hora de Início:
           </td>
           <td class="PropValue">
             <xsl:value-of select="StartTime"/>
@@ -25,7 +25,7 @@
         </tr>
         <tr>
           <td class="PropName">
-            <!-- _locID_text="EndTime" -->End Time:
+            <!-- _locID_text="EndTime" -->Data/Hora de Término:
           </td>
           <td class="PropValue">
             <xsl:value-of select="EndTime"/>
@@ -33,7 +33,7 @@
         </tr>
         <tr>
           <td class="PropName">
-            <!-- _locID_text="ApplicationTier" -->Application Tier:
+            <!-- _locID_text="ApplicationTier" -->Camada de Aplicação:
           </td>
           <td class="PropValue">
             <xsl:value-of select="ApplicationTier"/>
@@ -41,7 +41,7 @@
         </tr>
         <tr>
           <td class="PropName">
-            <!-- _locID_text="LogFile" -->Log File:
+            <!-- _locID_text="LogFile" -->Arquivo de Log:
           </td>
           <td class="PropValue">
             <xsl:value-of select="LogFile"/>

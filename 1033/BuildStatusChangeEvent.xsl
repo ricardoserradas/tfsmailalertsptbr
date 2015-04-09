@@ -4,7 +4,7 @@
   <!-- Common TFS elements -->
   <xsl:template match="BuildStatusChangeEvent">
     <head>
-      <title _locID="Title">Team Foundation Server Build Quality Change</title>
+      <title _locID="Title">Team Foundation Server - Mudança na Qualidade de Build</title>
       <!-- Pull in the common style settings -->
       <xsl:call-template name="style">
       </xsl:call-template>
@@ -29,27 +29,27 @@
         </tr>
 
         <tr>
-          <td class="PropName" _locID="BuildNumber">Build Number:</td>
+          <td class="PropName" _locID="BuildNumber">Id do Build:</td>
           <td class="PropValue">
             <xsl:value-of select="Id" />
           </td>
         </tr>
 
         <tr>
-          <td class="PropName" _locID="Details">Details:</td>
+          <td class="PropName" _locID="Details">Detalhes:</td>
           <td class="PropValue" _locID="DetailsMessage">
-            Build Quality changed by <xsl:value-of select="ChangedBy"/> from &apos;<xsl:value-of select="StatusChange/OldValue"/>&apos; to &apos;<xsl:value-of select="StatusChange/NewValue"/>&apos;
+            Qualidade do Build modificada de <xsl:value-of select="ChangedBy"/> de &apos;<xsl:value-of select="StatusChange/OldValue"/>&apos; para &apos;<xsl:value-of select="StatusChange/NewValue"/>&apos;
           </td>
         </tr>
 
         <tr>
-          <td class="PropName" _locID="ChangedBy">Changed by:</td>
+          <td class="PropName" _locID="ChangedBy">Modificado por:</td>
           <td class="PropValue">
             <xsl:value-of select="ChangedBy" />
           </td>
         </tr>
         <tr>
-          <td class="PropName" _locID="ChangedOn">Changed on:</td>
+          <td class="PropName" _locID="ChangedOn">Modificado em:</td>
           <td class="PropValue">
             <xsl:value-of select="ChangedTime" />
           </td>

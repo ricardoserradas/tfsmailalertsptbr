@@ -17,7 +17,7 @@
 <xsl:text>&#xA;</xsl:text><xsl:text><!--_locID_text="teamProjects"-->Team Project(s): </xsl:text><xsl:value-of select="CheckinEvent/TeamProject"/>
 <xsl:choose>
 <xsl:when test="CheckinEvent/Owner != CheckinEvent/Committer">
-<xsl:text>&#xA;</xsl:text><xsl:text><!--_locID_text="checkedInOnBehalfOf"-->Checked in on behalf of: </xsl:text><xsl:variable name="owner" select="CheckinEvent/OwnerDisplay"/>
+<xsl:text>&#xA;</xsl:text><xsl:text><!--_locID_text="checkedInOnBehalfOf"-->Check-in realizado em nome de: </xsl:text><xsl:variable name="owner" select="CheckinEvent/OwnerDisplay"/>
 <xsl:if test="$owner=''">
 <xsl:value-of select="CheckinEvent/Owner"/>
 </xsl:if>
@@ -26,7 +26,7 @@
 </xsl:if>
 </xsl:when>
 <xsl:when test="CheckinEvent/Owner = CheckinEvent/Committer">
-<xsl:text>&#xA;</xsl:text><xsl:text><!--_locID_text="checkedInBy"-->Checked in by: </xsl:text><xsl:variable name="owner" select="CheckinEvent/OwnerDisplay"/>
+<xsl:text>&#xA;</xsl:text><xsl:text><!--_locID_text="checkedInBy"-->Check-in realizado por: </xsl:text><xsl:variable name="owner" select="CheckinEvent/OwnerDisplay"/>
 <xsl:if test="$owner=''">
 <xsl:value-of select="CheckinEvent/Owner"/>
 </xsl:if>
@@ -38,7 +38,7 @@
 <xsl:if test="string-length(CheckinEvent/Committer) > 0">
 <!-- only print if commiter != owner ) -->
 <xsl:if test="CheckinEvent/Owner != CheckinEvent/Committer">
-<xsl:text>&#xA;</xsl:text><xsl:text><!--_locID_text="checkedInBy"-->Checked in by: </xsl:text><xsl:variable name="cmtr" select="CheckinEvent/CommitterDisplay"/>
+<xsl:text>&#xA;</xsl:text><xsl:text><!--_locID_text="checkedInBy"-->Check-in realizado por: </xsl:text><xsl:variable name="cmtr" select="CheckinEvent/CommitterDisplay"/>
 <xsl:if test="$cmtr=''">
 <xsl:value-of select="CheckinEvent/CommitterDisplay"/>
 </xsl:if>
@@ -47,7 +47,7 @@
 </xsl:if>
 </xsl:if>
 </xsl:if>
-<xsl:text>&#xA;</xsl:text><xsl:text><!--_locID_text="checkedInOn"-->Checked in on: </xsl:text><xsl:value-of select="CheckinEvent/CreationDate"/>
+<xsl:text>&#xA;</xsl:text><xsl:text><!--_locID_text="checkedInOn"-->Check-in realizado em: </xsl:text><xsl:value-of select="CheckinEvent/CreationDate"/>
 <xsl:variable name="ckinNoteCount" select="count(CheckinEvent/CheckinNotes/CheckinNote)"/>
 <xsl:text>&#xA;</xsl:text>
 <xsl:if test="$ckinNoteCount > 0"> 
@@ -58,28 +58,28 @@
 <xsl:value-of select="concat(' ',@val)"/>
 </xsl:if>
 <xsl:if test="$valueLength = 0">
-<xsl:text><!-- _locID_text="none" --> None</xsl:text>
+<xsl:text><!-- _locID_text="none" --> Nenhum</xsl:text>
 </xsl:if>
 <!-- force a line break after each checkin note -->
 <xsl:text>&#xA;</xsl:text>
 </xsl:for-each>
 </xsl:if>
-<xsl:text>&#xA;</xsl:text><xsl:text><!--_locID_text="comment"-->Comment: </xsl:text><xsl:variable name="commentLength" select="string-length(CheckinEvent/Comment)"/><xsl:if test="$commentLength > 0"><xsl:value-of select="CheckinEvent/Comment"/></xsl:if><xsl:if test="$commentLength = 0">None</xsl:if>
+<xsl:text>&#xA;</xsl:text><xsl:text><!--_locID_text="comment"-->Comentário: </xsl:text><xsl:variable name="commentLength" select="string-length(CheckinEvent/Comment)"/><xsl:if test="$commentLength > 0"><xsl:value-of select="CheckinEvent/Comment"/></xsl:if><xsl:if test="$commentLength = 0">None</xsl:if>
 <xsl:if test="string-length(CheckinEvent/PolicyOverrideComment) > 0">
 <xsl:text>&#xA;</xsl:text>
-<xsl:text>&#xA;</xsl:text><xsl:text><!--_locID_text="policyOverrideReason"-->Policy Override Reason: </xsl:text><xsl:value-of select="CheckinEvent/PolicyOverrideComment"/>
+<xsl:text>&#xA;</xsl:text><xsl:text><!--_locID_text="policyOverrideReason"-->Razão para Ignorar a Política: </xsl:text><xsl:value-of select="CheckinEvent/PolicyOverrideComment"/>
 </xsl:if>
 <xsl:if test="count(CheckinEvent/CheckinInformation/CheckinInformation[@CheckinAction='Resolve']) > 0">
 <xsl:text>&#xA;&#xA;</xsl:text>
-<xsl:text><!--_locID_text="resolvedWorkitems"-->--------------- RESOLVED WORK ITEMS ----------------</xsl:text>
+<xsl:text><!--_locID_text="resolvedWorkitems"-->--------------- WORK ITEMS RESOLVIDOS ----------------</xsl:text>
 <xsl:for-each select="CheckinEvent/CheckinInformation/CheckinInformation[@CheckinAction='Resolve']">
 <xsl:sort select="@Type"/>
 <xsl:sort select="@Id" data-type="number" />
-<xsl:text>&#xA;</xsl:text><xsl:text><!--_locID_text="type"-->Type: </xsl:text><xsl:value-of select="@Type"/>
+<xsl:text>&#xA;</xsl:text><xsl:text><!--_locID_text="type"-->Tipo: </xsl:text><xsl:value-of select="@Type"/>
 <xsl:text>&#xA;</xsl:text><xsl:text><!--_locID_text="id"-->ID: </xsl:text><xsl:call-template name="link"> <xsl:with-param name="format" select="'text'"/> <xsl:with-param name="link" select="@Url"/> <xsl:with-param name="displayText" select="@Id"/> </xsl:call-template>
-<xsl:text>&#xA;</xsl:text><xsl:text><!--_locID_text="title"-->Title: </xsl:text><xsl:value-of select="@Title"/>
+<xsl:text>&#xA;</xsl:text><xsl:text><!--_locID_text="title"-->Título: </xsl:text><xsl:value-of select="@Title"/>
 <xsl:text>&#xA;</xsl:text><xsl:text><!--_locID_text="status"-->Status: </xsl:text><xsl:value-of select="@State"/>
-<xsl:text>&#xA;</xsl:text><xsl:text><!--_locID_text="assignedTo"-->Assigned To: </xsl:text><xsl:variable name="assignedToLength" select="string-length(@AssignedTo)"/>
+<xsl:text>&#xA;</xsl:text><xsl:text><!--_locID_text="assignedTo"-->Atribuído à: </xsl:text><xsl:variable name="assignedToLength" select="string-length(@AssignedTo)"/>
 <xsl:if test="$assignedToLength > 0">
 <xsl:value-of select="@AssignedTo"/></xsl:if>
 <xsl:if test="$assignedToLength = 0"><!--_locID_text="notAvailable"-->N/A</xsl:if>
@@ -88,15 +88,15 @@
 </xsl:if>
 <xsl:if test="count(CheckinEvent/CheckinInformation/CheckinInformation[@CheckinAction='Associate']) > 0">
 <xsl:text>&#xA;</xsl:text>
-<xsl:text><!--_locID_text="associatedWorkitems"-->--------------- ASSOCIATED WORK ITEMS ----------------</xsl:text>
+<xsl:text><!--_locID_text="associatedWorkitems"-->--------------- WORK ITEMS ASSOCIADOS ----------------</xsl:text>
 <xsl:for-each select="CheckinEvent/CheckinInformation/CheckinInformation[@CheckinAction='Associate']">
 <xsl:sort select="@Type"/>
 <xsl:sort select="@Id" data-type="number" />
-<xsl:text>&#xA;</xsl:text><xsl:text><!--_locID_text="type"-->Type: </xsl:text><xsl:value-of select="@Type"/>
+<xsl:text>&#xA;</xsl:text><xsl:text><!--_locID_text="type"-->Tipo: </xsl:text><xsl:value-of select="@Type"/>
 <xsl:text>&#xA;</xsl:text><xsl:text><!--_locID_text="id"-->ID: </xsl:text><xsl:call-template name="link"> <xsl:with-param name="format" select="'text'"/> <xsl:with-param name="link" select="@Url"/> <xsl:with-param name="displayText" select="@Id"/> </xsl:call-template>
-<xsl:text>&#xA;</xsl:text><xsl:text><!--_locID_text="title"-->Title: </xsl:text><xsl:value-of select="@Title"/>
+<xsl:text>&#xA;</xsl:text><xsl:text><!--_locID_text="title"-->Título: </xsl:text><xsl:value-of select="@Title"/>
 <xsl:text>&#xA;</xsl:text><xsl:text><!--_locID_text="status"-->Status: </xsl:text><xsl:value-of select="@State"/>
-<xsl:text>&#xA;</xsl:text><xsl:text><!--_locID_text="assignedTo"-->Assigned To: </xsl:text><xsl:variable name="assignedToLength" select="string-length(@AssignedTo)"/>
+<xsl:text>&#xA;</xsl:text><xsl:text><!--_locID_text="assignedTo"-->Atribuído à: </xsl:text><xsl:variable name="assignedToLength" select="string-length(@AssignedTo)"/>
 <xsl:if test="$assignedToLength > 0">
 <xsl:value-of select="@AssignedTo"/></xsl:if>
 <xsl:if test="$assignedToLength = 0"><!--_locID_text="notAvailable"-->N/A</xsl:if>
@@ -105,26 +105,26 @@
 </xsl:if>
 <xsl:if test="count(CheckinEvent/PolicyFailures/PolicyFailure) > 0"> 
 <xsl:text>&#xA;</xsl:text>
-<xsl:text><!--_locID_text="policyFailures"-->--------------- POLICY FAILURES ----------------</xsl:text>
+<xsl:text><!--_locID_text="policyFailures"-->--------------- FALHAS DE POLÍTICAS ----------------</xsl:text>
 <xsl:for-each select="CheckinEvent/PolicyFailures/PolicyFailure">
-<xsl:text>&#xA;</xsl:text><xsl:text><!--_locID_text="type"-->Type: </xsl:text><xsl:value-of select="@name"/>
+<xsl:text>&#xA;</xsl:text><xsl:text><!--_locID_text="type"-->Tipo: </xsl:text><xsl:value-of select="@name"/>
 <xsl:variable name="valueLength" select="string-length(@val)"/>
-<xsl:text>&#xA;</xsl:text><xsl:text><!--_locID_text="description"-->Description: </xsl:text><xsl:if test="$valueLength > 0"><xsl:value-of select="@val"/></xsl:if>
+<xsl:text>&#xA;</xsl:text><xsl:text><!--_locID_text="description"-->Descrição: </xsl:text><xsl:if test="$valueLength > 0"><xsl:value-of select="@val"/></xsl:if>
 <xsl:if test="$valueLength = 0"><xsl:value-of select='None'/></xsl:if>
 <xsl:text>&#xA;</xsl:text>
 </xsl:for-each>
 </xsl:if>
 <xsl:if test="count(CheckinEvent/Artifacts/Artifact[@ArtifactType='VersionedItem']) > 0"> 
 <xsl:text>&#xA;</xsl:text>
-<xsl:text><!--_locID_text="items"-->--------------- ITEMS ----------------</xsl:text>
+<xsl:text><!--_locID_text="items"-->--------------- ITENS ----------------</xsl:text>
 <xsl:for-each select="CheckinEvent/Artifacts/Artifact[@ArtifactType='VersionedItem']">
-<xsl:text>&#xA;</xsl:text><xsl:text><!--_locID_text="name"-->Name: </xsl:text><xsl:call-template name="link">
+<xsl:text>&#xA;</xsl:text><xsl:text><!--_locID_text="name"-->Nome: </xsl:text><xsl:call-template name="link">
 <xsl:with-param name="format" select="'text'"/>
 <xsl:with-param name="link" select="Url"/>
 <xsl:with-param name="displayText" select="@Item"/>
 </xsl:call-template>
-<xsl:text>&#xA;</xsl:text><xsl:text><!--_locID_text="change"-->Change: </xsl:text><xsl:value-of select="@ChangeType"/>
-<xsl:text>&#xA;</xsl:text><xsl:text><!--_locID_text="folder"-->Folder: </xsl:text><xsl:value-of select="@Folder" />
+<xsl:text>&#xA;</xsl:text><xsl:text><!--_locID_text="change"-->Mudança: </xsl:text><xsl:value-of select="@ChangeType"/>
+<xsl:text>&#xA;</xsl:text><xsl:text><!--_locID_text="folder"-->Pasta: </xsl:text><xsl:value-of select="@Folder" />
 <xsl:text>&#xA;</xsl:text>
 </xsl:for-each>
 <xsl:if test="CheckinEvent/AllChangesIncluded = 'false'">

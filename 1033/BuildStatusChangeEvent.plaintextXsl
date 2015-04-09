@@ -12,10 +12,10 @@
 <xsl:value-of select="$textSeparatorLong"/>
 <xsl:text>&#xA;</xsl:text>
 <!-- _locID_text="TeamProject" -->Team project: <xsl:value-of select="BuildStatusChangeEvent/TeamProject"/>
-<!-- _locID_text="BuildNumber" -->Build Number: <xsl:value-of select="BuildStatusChangeEvent/Id"/>
-<!-- _locID_text="Details" -->Details: Build Quality changed by <xsl:value-of select="BuildStatusChangeEvent/ChangedBy"/> from &apos;<xsl:value-of select="BuildStatusChangeEvent/StatusChange/OldValue"/>&apos; to &apos;<xsl:value-of select="BuildStatusChangeEvent/StatusChange/NewValue"/>&apos;
-<!-- _locID_text="ChangedBy" -->Changed by: <xsl:value-of select="BuildStatusChangeEvent/ChangedBy"/>
-<!-- _locID_text="ChangedOn" -->Changed on: <xsl:value-of select="BuildStatusChangeEvent/ChangedTime"/>
+<!-- _locID_text="BuildNumber" -->Id do Build: <xsl:value-of select="BuildStatusChangeEvent/Id"/>
+<!-- _locID_text="Details" -->Detalhes: Qualidade do Build modificada por <xsl:value-of select="BuildStatusChangeEvent/ChangedBy"/> de &apos;<xsl:value-of select="BuildStatusChangeEvent/StatusChange/OldValue"/>&apos; para &apos;<xsl:value-of select="BuildStatusChangeEvent/StatusChange/NewValue"/>&apos;
+<!-- _locID_text="ChangedBy" -->Modificado por: <xsl:value-of select="BuildStatusChangeEvent/ChangedBy"/>
+<!-- _locID_text="ChangedOn" -->Modificado em: <xsl:value-of select="BuildStatusChangeEvent/ChangedTime"/>
 <xsl:text>&#xA;</xsl:text>
 	<xsl:call-template name="footer">
 	<xsl:with-param name="format" select="'text'"/>

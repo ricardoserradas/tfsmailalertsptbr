@@ -13,17 +13,17 @@
         <xsl:text>&#xA;</xsl:text>
         <!-- _locID_text="TeamProject" -->Team Project: <xsl:value-of select="TeamProject"/>
         <!-- _locID_text="Id" -->Id: <xsl:value-of select="Id"/>
-        <!-- _locID_text="TestPlanId" -->Test Plan Id: <xsl:value-of select="TestPlanId"/>
-        <!-- _locID_text="IsAutomated" -->Is Automated: <xsl:value-of select="IsAutomated"/>
-        <!-- _locID_text="CreationDate" -->Creation Date: <xsl:value-of select="CreationDate"/>
-        <!-- _locID_text="Owner" -->Owner: <xsl:value-of select="Owner" />
-        <!-- _locID_text="State" -->State: <xsl:value-of select="State" />
+        <!-- _locID_text="TestPlanId" -->Id do Plano de Testes: <xsl:value-of select="TestPlanId"/>
+        <!-- _locID_text="IsAutomated" -->É Automatizado? <xsl:value-of select="IsAutomated"/>
+        <!-- _locID_text="CreationDate" -->Data da Criação <xsl:value-of select="CreationDate"/>
+        <!-- _locID_text="Owner" -->Dono: <xsl:value-of select="Owner" />
+        <!-- _locID_text="State" -->Estado: <xsl:value-of select="State" />
         <xsl:if test="BuildNumber != ''">
-            <!-- _locID_text="BuildNumber" -->Build Number: <xsl:value-of select="BuildNumber" />
+            <!-- _locID_text="BuildNumber" -->Id do Build: <xsl:value-of select="BuildNumber" />
         </xsl:if>
-        <!-- _locID_text="TotalTests" -->Total Tests: <xsl:value-of select="TotalTests" />
-        <!-- _locID_text="LastUpdated" -->Last Updated Date: <xsl:value-of select="LastUpdated" />
-        <!-- _locID_text="LastUpdatedBy" -->Last Updated By: <xsl:value-of select="LastUpdatedBy" />
+        <!-- _locID_text="TotalTests" -->Qtd. Total de Testes: <xsl:value-of select="TotalTests" />
+        <!-- _locID_text="LastUpdated" -->Data da Última Modificação: <xsl:value-of select="LastUpdated" />
+        <!-- _locID_text="LastUpdatedBy" -->Modificado por Último por: <xsl:value-of select="LastUpdatedBy" />
         <xsl:text>&#xA;</xsl:text>
         <xsl:call-template name="footer">
             <xsl:with-param name="format" select="'text'"/>

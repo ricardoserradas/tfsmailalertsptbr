@@ -4,7 +4,7 @@
   <!-- Common TFS elements -->
   <xsl:template match="ConfirmPreferredEmailEvent">
     <head>
-      <title _locID="Title">[Team Foundation Service] Confirm new preferred email address</title>
+      <title _locID="Title">[Team Foundation Service] Confirme o novo endereço de e-mail preferencial</title>
       <!-- Pull in the common style settings -->
       <xsl:call-template name="style">
       </xsl:call-template>
@@ -20,18 +20,18 @@
     </head>
     <body>
       <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 12pt;">
-        <div>Hi <xsl:value-of select="DisplayNameText"/>,</div>
+        <div>Olá <xsl:value-of select="DisplayNameText"/>,</div>
         <br/>
-        <div>It looks like you updated the preferred email address of your Microsoft Visual Studio profile.</div>
+        <div>Parece que você atualizou seu endereço de e-mail preferencial no seu perfil do Microsoft Visual Studio.</div>
         <br/>
-        <div>Once you <a><xsl:attribute name="HREF"><xsl:value-of select="ConfirmationUrl"/></xsl:attribute>click to confirm</a>, we will use <b><xsl:value-of select="NewEmailAddress"/></b> for future communications like alerts and service notifications.</div>
+        <div>Uma vez que vocë <a><xsl:attribute name="HREF"><xsl:value-of select="ConfirmationUrl"/></xsl:attribute>clicar em confirmar</a>, nós vamos usar <b><xsl:value-of select="NewEmailAddress"/></b> para comunicações futuras, como alertas e notificações de serviços.</div>
         <br/>
-        <div>If you did not make this change, please contact us at TFServiceSupport@microsoft.com so we can investigate.</div>
+        <div>Se você não realizou esta mudança, por favor entre em contato conosco através do e-mail TFServiceSupport@microsoft.com para que possamos investigar.</div>
         <br/>
-        <div>Thank you,</div>
-        <div>The Visual Studio team</div>
+        <div>Obrigado,</div>
+        <div>O Time de Visual Studio</div>
         <br/>
-        <div>Microsoft respects your privacy. Please read our online <a href="http://go.microsoft.com/fwlink/?LinkID=246330">Privacy Statement</a>.</div>
+        <div>A Microsoft respeita sua privacidade. Por favor leia nossa <a href="http://go.microsoft.com/fwlink/?LinkID=246330">Política de Privacidade</a> online.</div>
       </div>
     </body>
   </xsl:template>

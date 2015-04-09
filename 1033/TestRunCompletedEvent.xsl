@@ -4,7 +4,7 @@
   <!-- Common TeamSystem elements -->
   <xsl:template match="TestRunCompletedEvent">
     <head>
-      <title _locID="Title">Test Run Completed</title>
+      <title _locID="Title">Execução de Testes Finalizada</title>
       <!-- Pull in the common style settings -->
       <xsl:call-template name="style">
       </xsl:call-template>
@@ -34,38 +34,38 @@
           </td>
         </tr>
         <tr>
-          <td class="PropName" _locID="TestPlanId">Test Plan Id: </td>
+          <td class="PropName" _locID="TestPlanId">Id do Plano de Testes: </td>
           <td class="PropValue">
             <xsl:value-of select="TestPlanId"/>
           </td>
         </tr>
         <tr>
-          <td class="PropName" _locID="IsAutomated">Is Automated: </td>
+          <td class="PropName" _locID="IsAutomated">É Automatizado? </td>
           <td class="PropValue">
             <xsl:value-of select="IsAutomated"/>
           </td>
         </tr>
         <tr>
-          <td class="PropName" _locID="CreationDate">Creation Date: </td>
+          <td class="PropName" _locID="CreationDate">Data da Criação: </td>
           <td class="PropValue">
             <xsl:value-of select="CreationDate"/>
           </td>
         </tr>
         <tr>
-          <td class="PropName" _locID="Owner">Owner: </td>
+          <td class="PropName" _locID="Owner">Dono: </td>
           <td class="PropValue">
             <xsl:value-of select="Owner"/>
           </td>
         </tr>
         <tr>
-          <td class="PropName" _locID="State">State: </td>
+          <td class="PropName" _locID="State">Estado: </td>
           <td class="PropValue">
             <xsl:value-of select="State"/>
           </td>
         </tr>
         <xsl:if test="BuildNumber != ''">
           <tr>
-            <td class="PropName" _locID="BuildNumber">Build Number: </td>
+            <td class="PropName" _locID="BuildNumber">Id do Build: </td>
             <td class="PropValue">
               <xsl:value-of select="BuildNumber" />
             </td>
@@ -73,7 +73,7 @@
         </xsl:if>
         <xsl:if test="ErrorMessage != ''">
           <tr>
-            <td class="PropName" _locID="ErrorMessage">Error Message: </td>
+            <td class="PropName" _locID="ErrorMessage">Mensagem de Erro: </td>
             <td class="PropValue">
               <xsl:value-of select="ErrorMessage" />
             </td>
@@ -81,7 +81,7 @@
         </xsl:if>
         <xsl:if test="StartDate != ''">
           <tr>
-            <td class="PropName" _locID="StartDate">Start Date: </td>
+            <td class="PropName" _locID="StartDate">Data/Hora de Início: </td>
             <td class="PropValue">
               <xsl:value-of select="StartDate" />
             </td>
@@ -89,7 +89,7 @@
         </xsl:if>        
         <xsl:if test="CompleteDate != ''">
           <tr>
-            <td class="PropName" _locID="CompleteDate">Complete Date: </td>
+            <td class="PropName" _locID="CompleteDate">Data/Hora de Término: </td>
             <td class="PropValue">
               <xsl:value-of select="CompleteDate" />
             </td>
@@ -97,44 +97,44 @@
         </xsl:if>
         <xsl:if test="Comment != ''">
           <tr>
-            <td class="PropName" _locID="Comment">Comment: </td>
+            <td class="PropName" _locID="Comment">Comentários: </td>
             <td class="PropValue">
               <xsl:value-of select="Comment" />
             </td>
           </tr>        
         </xsl:if>
         <tr>
-          <td class="PropName" _locID="TotalTests">Total Tests: </td>
+          <td class="PropName" _locID="TotalTests">Qtd. Total de Testes: </td>
           <td class="PropValue">
             <xsl:value-of select="TotalTests" />
           </td>
         </tr>
         <tr>
-          <td class="PropName" _locID="PassedTests">Passed Tests: </td>
+          <td class="PropName" _locID="PassedTests">Testes que Passaram: </td>
           <td class="PropValue">
             <xsl:value-of select="PassedTests" />
           </td>
         </tr>
         <tr>
-          <td class="PropName" _locID="UnanalyzedTests">Unanalyzed Tests: </td>
+          <td class="PropName" _locID="UnanalyzedTests">Testes Não Analisados: </td>
           <td class="PropValue">
             <xsl:value-of select="UnanalyzedTests" />
           </td>
         </tr>
         <tr>
-          <td class="PropName" _locID="LinkedWorkItemCount">Linked Work Item Count: </td>
+          <td class="PropName" _locID="LinkedWorkItemCount">Qtd. de Work Items Associados: </td>
           <td class="PropValue">
             <xsl:value-of select="LinkedWorkItemCount" />
           </td>
         </tr>                
         <tr>
-          <td class="PropName" _locID="LastUpdated">Last Updated Date: </td>
+          <td class="PropName" _locID="LastUpdated">Data da Última Modificação: </td>
           <td class="PropValue">
             <xsl:value-of select="LastUpdated" />
           </td>
         </tr>
         <tr>
-          <td class="PropName" _locID="LastUpdatedBy">Last Updated By: </td>
+          <td class="PropName" _locID="LastUpdatedBy">Modificado por Último por: </td>
           <td class="PropValue">
             <xsl:value-of select="LastUpdatedBy" />
           </td>

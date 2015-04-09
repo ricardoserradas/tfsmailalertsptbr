@@ -4,7 +4,7 @@
   <!-- Common TFS elements -->
   <xsl:template match="BuildDefinitionUpgradeCompletionEvent">
     <head>
-      <title _locID="Title">Team Foundation Server Build Definition Upgrade Completed</title>
+      <title _locID="Title">Team Foundation Server - Upgrade de Definição de Build Finalizado</title>
       <!-- Pull in the common style settings -->
       <xsl:call-template name="style">
       </xsl:call-template>
@@ -28,7 +28,7 @@
           </td>
         </tr>
         <tr>
-          <td class="PropName" _locID="BuildDefinition">Build Definition: </td>
+          <td class="PropName" _locID="BuildDefinition">Definição de Build: </td>
           <td class="PropValue">
             <xsl:value-of select="DefinitionPath"/>
           </td>
