@@ -12,11 +12,11 @@
 <xsl:value-of select="$textSeparatorLong"/>
 <xsl:text>&#xA;</xsl:text>
 <!-- _locID_text="TeamProject" -->Team Project: <xsl:value-of select="BuildCompletionEvent/TeamProject"/>
-<!-- _locID_text="BuildNumber" -->Build Number: <xsl:value-of select="BuildCompletionEvent/Id"/>
-<!-- _locID_text="RequestedBy" -->Build started by: <xsl:value-of select="BuildCompletionEvent/RequestedBy"/>
-<!-- _locID_text="BuildMachine" -->Build machine: <xsl:value-of select="BuildCompletionEvent/BuildMachine"/>
-<!-- _locID_text="BuildStartTime" -->Build started on: <xsl:value-of select="BuildCompletionEvent/BuildStartTime"/>
-<!-- _locID_text="BuildCompleteTime" -->Build completed on: <xsl:value-of select="BuildCompletionEvent/BuildCompleteTime"/>
+<!-- _locID_text="BuildNumber" -->Id do Build: <xsl:value-of select="BuildCompletionEvent/Id"/>
+<!-- _locID_text="RequestedBy" -->Build disparado por: <xsl:value-of select="BuildCompletionEvent/RequestedBy"/>
+<!-- _locID_text="BuildMachine" -->Máquina de Build: <xsl:value-of select="BuildCompletionEvent/BuildMachine"/>
+<!-- _locID_text="BuildStartTime" -->Build iniciado em: <xsl:value-of select="BuildCompletionEvent/BuildStartTime"/>
+<!-- _locID_text="BuildCompleteTime" -->Build finalizado em: <xsl:value-of select="BuildCompletionEvent/BuildCompleteTime"/>
 <xsl:text>&#xA;</xsl:text>
 	<xsl:call-template name="footer">
 	<xsl:with-param name="format" select="'text'"/>

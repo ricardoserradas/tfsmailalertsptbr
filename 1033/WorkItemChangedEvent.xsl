@@ -19,10 +19,10 @@
                 </xsl:attribute>
                 <!-- _locID_text="WorkItemText1"-->Work item
                 <xsl:if test="ChangeType[.='New']">
-                  <!-- _locID_text="CreatedColon1"-->Created:
+                  <!-- _locID_text="CreatedColon1"-->Criado:
                 </xsl:if>
                 <xsl:if test="ChangeType[.='Change']">
-                  <!-- _locID_text="ChangedColon1"-->Changed:
+                  <!-- _locID_text="ChangedColon1"-->Modificado:
                 </xsl:if>
                 <xsl:for-each select="CoreFields/StringFields/Field">
                   <xsl:if test="ReferenceName[.='System.WorkItemType']">
@@ -42,10 +42,10 @@
             <xsl:otherwise>
               <!-- _locID_text="WorkItemText2" -->Work item
               <xsl:if test="ChangeType[.='New']">
-                <!-- _locID_text="CreatedColon2"-->Created:
+                <!-- _locID_text="CreatedColon2"-->Criado:
               </xsl:if>
               <xsl:if test="ChangeType[.='Change']">
-                <!-- _locID_text="ChangedColon2"-->Changed:
+                <!-- _locID_text="ChangedColon2"-->Modificado:
               </xsl:if>
               <xsl:for-each select="CoreFields/StringFields/Field">
                 <xsl:if test="ReferenceName[.='System.WorkItemType']">
@@ -76,7 +76,7 @@
         </tr>
         <tr>
           <td class="PropName">
-            <!-- _locID_text="AreaColon" -->Area:
+            <!-- _locID_text="AreaColon" -->Área:
           </td>
           <td class="PropValue">
             <xsl:value-of select="AreaPath" />
@@ -84,7 +84,7 @@
         </tr>
         <tr>
           <td class="PropName">
-            <!-- _locID_text="IterationColon" -->Iteration:
+            <!-- _locID_text="IterationColon" -->Iteração:
           </td>
           <td class="PropValue">
             <xsl:for-each select="CoreFields/StringFields/Field">
@@ -96,7 +96,7 @@
         </tr>
         <tr>
           <td class="PropName">
-            <!-- _locID_text="AssignedToColon" -->Assigned to:
+            <!-- _locID_text="AssignedToColon" -->Atribuído à:
           </td>
           <td class="PropValue">
             <xsl:for-each select="CoreFields/StringFields/Field">
@@ -108,7 +108,7 @@
         </tr>
         <tr>
           <td class="PropName">
-            <!-- _locID_text="StateColon" -->State:
+            <!-- _locID_text="StateColon" -->Estado:
           </td>
           <td class="PropValue">
             <xsl:for-each select="CoreFields/StringFields/Field">
@@ -120,7 +120,7 @@
         </tr>
         <tr>
           <td class="PropName">
-            <!-- _locID_text="ReasonColon" -->Reason:
+            <!-- _locID_text="ReasonColon" -->Razão:
           </td>
           <td class="PropValue">
             <xsl:for-each select="CoreFields/StringFields/Field">
@@ -132,7 +132,7 @@
         </tr>
         <tr>
           <td class="PropName">
-            <!-- _locID_text="ChangedByColon" -->Changed by:
+            <!-- _locID_text="ChangedByColon" -->Modificado por:
           </td>
           <td class="PropValue">
             <xsl:for-each select="CoreFields/StringFields/Field">
@@ -144,7 +144,7 @@
         </tr>
         <tr>
           <td class="PropName">
-            <!-- _locID_text="ChangedDateColon" -->Changed date:
+            <!-- _locID_text="ChangedDateColon" -->Data da Modificação:
           </td>
           <td class="PropValue">
             <xsl:for-each select="CoreFields/StringFields/Field">
@@ -160,10 +160,10 @@
 
       <xsl:if test="count(/WorkItemChangedEvent/ChangedFields//Field) > 0 or boolean(/WorkItemChangedEvent/TextFields/TextField)">
         <xsl:if test="ChangeType[.='New']" >
-          <!-- _locID_text="OtherFields"-->Other fields
+          <!-- _locID_text="OtherFields"-->Outros campos
         </xsl:if>
         <xsl:if test="ChangeType[.='Change']">
-          <!-- _locID_text="ChangedFields"-->Changed fields
+          <!-- _locID_text="ChangedFields"-->Campos modificados
         </xsl:if>
       </xsl:if>
 
@@ -173,10 +173,10 @@
           <table class="WithBorder">
             <tr>
               <td class="ColHeadingMedium">
-                <!-- _locID_text="FieldText1"-->Field
+                <!-- _locID_text="FieldText1"-->Campo
               </td>
               <td class="ColHeading">
-                <!-- _locID_text="NewValueText1"-->New Value
+                <!-- _locID_text="NewValueText1"-->Novo Valor
               </td>
             </tr>
 
@@ -209,13 +209,13 @@
           <table class="WithBorder">
             <tr>
               <td class="ColHeadingMedium">
-                <!-- _locID_text="FieldText2"-->Field
+                <!-- _locID_text="FieldText2"-->Campo
               </td>
               <td class="ColHeading">
-                <!-- _locID_text="NewValueText2"-->New Value
+                <!-- _locID_text="NewValueText2"-->Novo Valor
               </td>
               <td class="ColHeading">
-                <!-- _locID_text="OldValueText2"-->Old Value
+                <!-- _locID_text="OldValueText2"-->Valor Antigo
               </td>
             </tr>
 
@@ -293,10 +293,10 @@
           <table class="WithBorder">
             <tr>
               <td class="ColHeadingMedium">
-                <!-- _locID_text="FieldText3"-->Field
+                <!-- _locID_text="FieldText3"-->Campo
               </td>
               <td class="ColHeading" _locID="NewValue">
-                <!-- _locID_text="NewValueText3"-->New Value
+                <!-- _locID_text="NewValueText3"-->Novo Valor
               </td>
             </tr>
 
@@ -368,21 +368,21 @@
 
       <xsl:if test="boolean(/WorkItemChangedEvent/AddedFiles) or boolean(/WorkItemChangedEvent/AddedResourceLinks) or boolean(/WorkItemChangedEvent/AddedRelations)">
         <br/>
-        <!-- _locID_text="LinksAndAttachments" -->Links and Attachments
+        <!-- _locID_text="LinksAndAttachments" -->Links e Anexos
         <table class="WithBorder">
           <tr>
             <td class="ColHeadingMedium">
-              <!-- _locID_text="TypeText" -->Type
+              <!-- _locID_text="TypeText" -->Tipo
             </td>
             <td class="ColHeading">
-              <!-- _locID_text="DescriptionText" -->Description
+              <!-- _locID_text="DescriptionText" -->Descrição
             </td>
           </tr>
 
           <xsl:for-each select="AddedFiles/AddedFile">
             <tr>
               <td class="Col1Data">
-                <!-- _locID_text="FileAttachmentText" -->File Attachment
+                <!-- _locID_text="FileAttachmentText" -->Arquivo Anexo
               </td>
               <td class="ColData">
                 <xsl:value-of select="Name"/>
@@ -409,7 +409,7 @@
                     <xsl:value-of select="LinkName"/>
                   </xsl:when>
                   <xsl:otherwise>
-                    <!-- _locID_text="RelatedWorkItem" -->Related
+                    <!-- _locID_text="RelatedWorkItem" -->Relacionado
                   </xsl:otherwise>
                 </xsl:choose>
               </td>
@@ -424,27 +424,27 @@
 
       <xsl:if test="boolean(/WorkItemChangedEvent/DeletedFiles)">
         <br/>
-          <!-- _locID_text="OneOrMoreAttachmentsDeleted"-->1 or more attachments have been deleted.  See work item for details.
+          <!-- _locID_text="OneOrMoreAttachmentsDeleted"-->1 ou mais anexos foram excluídos.  Veja o work item para mais detalhes.
       </xsl:if>
 
       <xsl:if test="boolean(/WorkItemChangedEvent/DeletedResourceLinks)">
         <br/>
-          <!-- _locID_text="OneOrMoreLinksDeleted"-->1 or more links have been deleted.  See work item for details.
+          <!-- _locID_text="OneOrMoreLinksDeleted"-->1 ou mais links foram excluídos.  Veja o work item para mais detalhes.
       </xsl:if>
 
       <xsl:if test="boolean(/WorkItemChangedEvent/ChangedResourceLinks)">
         <br/>
-          <!-- _locID_text="OneOrMoreLinksChanged"-->1 or more links have been changed.  See work item for details.
+          <!-- _locID_text="OneOrMoreLinksChanged"-->1 ou mais links foram modificados.  Veja o work item para mais detalhes.
       </xsl:if>
 
       <xsl:if test="boolean(/WorkItemChangedEvent/DeletedRelations)">
         <br/>
-          <!-- _locID_text="OneOrMoreRelatedWorkItemsDeleted"-->1 or more related work items have been deleted.  See work item for details.
+          <!-- _locID_text="OneOrMoreRelatedWorkItemsDeleted"-->1 ou mais work items relacionados foram excluídos.  Veja o work item para mais detalhes.
       </xsl:if>
 
       <xsl:if test="boolean(/WorkItemChangedEvent/ChangedRelations)">
         <br/>
-          <!-- _locID_text="OneOrMOreRelatedWorkItemsChanged"-->1 or more related work items have been changed.  See work item for details.
+          <!-- _locID_text="OneOrMOreRelatedWorkItemsChanged"-->1 ou mais work items relacionados foram modificados.  Veja o work item para mais detalhes.
       </xsl:if>
 
       <xsl:call-template name="footer">

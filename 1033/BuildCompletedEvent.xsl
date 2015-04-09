@@ -41,31 +41,31 @@
             <xsl:when test="$totalRequests = 1">
               <xsl:choose>
                 <xsl:when test="$succeededRequests = 0">
-                  <!-- _locID_text="CheckInRejected" -->Check-in Rejected
+                  <!-- _locID_text="CheckInRejected" -->Check-in Negado
                 </xsl:when>
                 <xsl:otherwise>
-                  <!-- _locID_text="CheckInCommitted" -->Check-in Committed
+                  <!-- _locID_text="CheckInCommitted" -->Check-in Aceito
                 </xsl:otherwise>
               </xsl:choose>
             </xsl:when>
             <xsl:otherwise>
-              <!-- _locID_text="Committed_N_Requests"-->Committed <xsl:value-of select="$succeededRequests"/> Changesets for <xsl:value-of select="$totalRequests" /> Check-in Requests
+              <!-- _locID_text="Committed_N_Requests"--><xsl:value-of select="$succeededRequests"/> Changesets aceitos para <xsl:value-of select="$totalRequests" /> Requisições de Check-in
             </xsl:otherwise>
           </xsl:choose>
         </xsl:when>
         <xsl:otherwise>
           <xsl:choose>
             <xsl:when test="tb:Build/@Status = 'Succeeded'">
-              <!-- _locID_text="Succeeded" -->Succeeded
+              <!-- _locID_text="Succeeded" -->Passou
             </xsl:when>
             <xsl:when test="tb:Build/@Status = 'PartiallySucceeded'">
-              <!-- _locID_text="PartiallySucceeded" -->Partially Succeeded
+              <!-- _locID_text="PartiallySucceeded" -->Passou Parcialmente
             </xsl:when>
             <xsl:when test="tb:Build/@Status = 'Failed'">
-              <!-- _locID_text="Failed" -->Failed
+              <!-- _locID_text="Failed" -->Falhou
             </xsl:when>
             <xsl:otherwise>
-              <!-- _locID_text="Stopped" -->Stopped
+              <!-- _locID_text="Stopped" -->Interrompida
             </xsl:otherwise>
           </xsl:choose>
         </xsl:otherwise>
@@ -76,37 +76,37 @@
             <xsl:attribute name="href">
               <xsl:value-of select="tb:Uri" />
             </xsl:attribute>
-            <!-- _locID_text="OpenInVS" -->Open Build Report in Visual Studio
+            <!-- _locID_text="OpenInVS" -->Abrir Relatório do Build no Visual Studio
           </a>
           |
           <a>
             <xsl:attribute name="href">
               <xsl:value-of select="tb:WebAccessUri" />
             </xsl:attribute>
-            <!-- _locID_text="OpenInTswa" -->Open Build Report in Web Access
+            <!-- _locID_text="OpenInTswa" -->Abrir Relatório do Build no Web Access
           </a>
         </span>
       </div>
     </p>
     <p>
       <xsl:choose>
-        <xsl:when test="tb:Build/@Reason = 'IndividualCI'">Continuous Integration</xsl:when>
-        <xsl:when test="tb:Build/@Reason = 'BatchedCI'">Rolling</xsl:when>
-        <xsl:when test="tb:Build/@Reason = 'Schedule' or tb:Build/@Reason = 'ScheduleForced'">Scheduled</xsl:when>
-        <xsl:when test="tb:Build/@Reason = 'ValidateShelveset'">Private</xsl:when>
+        <xsl:when test="tb:Build/@Reason = 'IndividualCI'">Integração Contínua</xsl:when>
+        <xsl:when test="tb:Build/@Reason = 'BatchedCI'">Acumulado</xsl:when>
+        <xsl:when test="tb:Build/@Reason = 'Schedule' or tb:Build/@Reason = 'ScheduleForced'">Agendado</xsl:when>
+        <xsl:when test="tb:Build/@Reason = 'ValidateShelveset'">Privado</xsl:when>
         <xsl:when test="tb:Build/@Reason = 'CheckInShelveset'">Gated Check-in</xsl:when>
         <xsl:otherwise>Manual</xsl:otherwise>
       </xsl:choose>
-      Build of <xsl:value-of select="$buildDefName"/> (<xsl:value-of select="$teamProjectName"/>)<br/>
-      Ran for 
+      Build da definição <xsl:value-of select="$buildDefName"/> (<xsl:value-of select="$teamProjectName"/>)<br/>
+      Rodou por 
       <xsl:call-template name ="durationToMinutes">
         <xsl:with-param name="seconds" select="tb:Duration"/>
-      </xsl:call-template> minutes 
+      </xsl:call-template> minutos 
       (<xsl:value-of select="tb:Controller/@Name"/>), 
-      completed at <xsl:call-template name="formatDateTime"><xsl:with-param name="dateTime" select="tb:FinishTimeLocal"/></xsl:call-template>
+      completou em <xsl:call-template name="formatDateTime"><xsl:with-param name="dateTime" select="tb:FinishTimeLocal"/></xsl:call-template>
     </p>
     <h2 style="font-size: 12pt; margin-bottom: 0em;">
-      <span _locID="RequestSummary">Request Summary</span>
+      <span _locID="RequestSummary">Sumário da Requisição</span>
     </h2>
     <div style="margin-left:1em">
       <table style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 10pt;">
@@ -116,7 +116,7 @@
       </table>
     </div>
     <h2 style="font-size: 12pt; margin-bottom: 0em;">
-      <span _locID="BuildSummary">Summary</span>
+      <span _locID="BuildSummary">Sumário</span>
     </h2>
     <div style="margin-left:1em;font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 10pt;">
       <xsl:apply-templates select="tb:Build/tb:Information/tb:BuildInformationNode[@Type = 'ConfigurationSummary']">
@@ -124,12 +124,12 @@
       </xsl:apply-templates>
       <xsl:variable name="otherErrors" select="count(tb:Build/tb:Information/tb:BuildInformationNode[@Type = 'BuildError' and (count(@ParentId) = 0 or @ParentId = 0)])"/>
       <xsl:if test="$otherErrors > 0">
-        Other Errors
+        Outros Erros
         <table style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 10pt; padding-left: 2em;">
           <tr>
             <td>
               <span _locID="OtherErrors">
-                <xsl:value-of select="$otherErrors"/> error(s)
+                <xsl:value-of select="$otherErrors"/> erro(s)
               </span>
             </td>
           </tr>
@@ -139,7 +139,7 @@
     </div>
     <xsl:if test="count(tb:Build/tb:Information/tb:BuildInformationNode[@Type = 'AssociatedChangeset']) > 0">
       <h2 style="font-size: 12pt; margin-bottom: 0em;">
-        <span _locID="AssociatedChangesets">Associated Changesets</span>
+        <span _locID="AssociatedChangesets">Changesets Associados</span>
       </h2>
       <div style="margin-left:1em">
         <table style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 10pt;">
@@ -151,7 +151,7 @@
     </xsl:if>
     <xsl:if test="count(tb:Build/tb:Information/tb:BuildInformationNode[@Type = 'AssociatedWorkItem']) > 0">
       <h2 style="font-size: 12pt; margin-bottom: 0em;">
-        <span _locID="AssociatedWorkItems">Associated Work Items</span>
+        <span _locID="AssociatedWorkItems">Work Items Associados</span>
       </h2>
       <div style="margin-left:1em">
         <table style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 10pt;">
@@ -207,13 +207,13 @@
     <tr>
       <td colspan="2" style="padding-right: 2em; color: #888;">
         <span _locID="WorkItemState">
-          Current state is <xsl:value-of select="tb:Fields/tb:InformationField[@Name = 'Status']/@Value"/>.
+          Estado atual é <xsl:value-of select="tb:Fields/tb:InformationField[@Name = 'Status']/@Value"/>.
           <xsl:choose>
             <xsl:when test="tb:Fields/tb:InformationField[@Name = 'AssignedTo']/@Value != ''">
-              Currently assigned to <xsl:value-of select="tb:Fields/tb:InformationField[@Name = 'AssignedTo']/@Value"/>.
+              Atualmente atribuído à <xsl:value-of select="tb:Fields/tb:InformationField[@Name = 'AssignedTo']/@Value"/>.
             </xsl:when>
             <xsl:otherwise>
-              Currently not assigned to anyone.
+              Não atribuído a ninguém no momento.
             </xsl:otherwise>
           </xsl:choose>
         </span>
@@ -245,8 +245,8 @@
       <td>
         <span _locID="ProjectSummary">
           <xsl:value-of select="tb:Fields/tb:InformationField[@Name = 'ServerPath']/@Value"/> - 
-          <xsl:value-of select="tb:Fields/tb:InformationField[@Name = 'CompilationErrors']/@Value"/> error(s),
-          <xsl:value-of select="tb:Fields/tb:InformationField[@Name = 'CompilationWarnings']/@Value"/> warning(s)
+          <xsl:value-of select="tb:Fields/tb:InformationField[@Name = 'CompilationErrors']/@Value"/> erro(s),
+          <xsl:value-of select="tb:Fields/tb:InformationField[@Name = 'CompilationWarnings']/@Value"/> aviso(s)
         </span>
       </td>
     </tr>
@@ -261,8 +261,8 @@
       <tr>
         <td>
           <span _locID="ErrorsAndWarnings">
-            <xsl:value-of select="tb:Fields/tb:InformationField[@Name = 'TotalCompilationErrors']/@Value"/> error(s),
-            <xsl:value-of select="tb:Fields/tb:InformationField[@Name = 'TotalCompilationWarnings']/@Value"/> warning(s)
+            <xsl:value-of select="tb:Fields/tb:InformationField[@Name = 'TotalCompilationErrors']/@Value"/> erro(s),
+            <xsl:value-of select="tb:Fields/tb:InformationField[@Name = 'TotalCompilationWarnings']/@Value"/> aviso(s)
           </span>
         </td>
       </tr>
@@ -276,7 +276,7 @@
     <tr>
       <td style="padding-right:2em;">
         <span _locID="RequestHeader">
-          Request <xsl:value-of select="$requestId"/>
+          Requisição <xsl:value-of select="$requestId"/>
         </span>
       </td>
       <td style="padding-right:2em;">
@@ -287,24 +287,24 @@
           <xsl:choose>
             <xsl:when test="$changesetId > 0">
               <td style="padding-right:2em;">
-                <!-- _locID_text="RequestCheckInCommitted" -->Check-in Committed
+                <!-- _locID_text="RequestCheckInCommitted" -->Check-in Realizado
               </td>
             </xsl:when>
             <xsl:when test="$changesetId = 0">
               <td style="padding-right:2em;">
-                <!-- _locID_text="RequestNoChangesCheckedIn" -->No Changes Checked In
+                <!-- _locID_text="RequestNoChangesCheckedIn" -->Nenhuma mudança realizada
               </td>
             </xsl:when>
             <xsl:otherwise>
               <td style="padding-right:2em; color:#C00;">
-                <!-- _locID_text="RequestCheckInRejected" -->Check-in Rejected
+                <!-- _locID_text="RequestCheckInRejected" -->Check-in Negado
               </td>
             </xsl:otherwise>
           </xsl:choose>
         </xsl:when>
         <xsl:otherwise>
           <td style="padding-right:2em;">
-            <!-- _locID_text="RequestCompleted" -->Completed
+            <!-- _locID_text="RequestCompleted" -->Finalizada
           </td>
         </xsl:otherwise>
       </xsl:choose>

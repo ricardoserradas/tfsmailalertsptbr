@@ -17,31 +17,31 @@
           <xsl:when test="$totalRequests = 1">
             <xsl:choose>
               <xsl:when test="$succeededRequests = 0">
-                <!-- _locID_text="CheckInRejected" --><xsl:value-of select="tb:Build/@BuildNumber"/> - Check-in Rejected
+                <!-- _locID_text="CheckInRejected" --><xsl:value-of select="tb:Build/@BuildNumber"/> - Check-in Negado
               </xsl:when>
               <xsl:otherwise>
-                <!-- _locID_text="CheckInCommitted" --><xsl:value-of select="tb:Build/@BuildNumber"/> - Check-in Committed
+                <!-- _locID_text="CheckInCommitted" --><xsl:value-of select="tb:Build/@BuildNumber"/> - Check-in Aceito
               </xsl:otherwise>
             </xsl:choose>
           </xsl:when>
           <xsl:otherwise>
-            <!-- _locID_text="Committed_N_Requests"--><xsl:value-of select="tb:Build/@BuildNumber"/> - Committed <xsl:value-of select="$succeededRequests"/> Changesets for <xsl:value-of select="$totalRequests" /> Check-in Requests
+            <!-- _locID_text="Committed_N_Requests"--><xsl:value-of select="tb:Build/@BuildNumber"/> <xsl:value-of select="$succeededRequests"/> Changesets aceitos para <xsl:value-of select="$totalRequests" /> Requisições de Check-in
           </xsl:otherwise>
         </xsl:choose>
       </xsl:when>
       <xsl:otherwise>
         <xsl:choose>
           <xsl:when test="tb:Build/@Status = 'Succeeded'">
-            <!-- _locID_text="Succeeded" --><xsl:value-of select="tb:Build/@BuildNumber"/> - Succeeded
+            <!-- _locID_text="Succeeded" --><xsl:value-of select="tb:Build/@BuildNumber"/> - Passou
           </xsl:when>
           <xsl:when test="tb:Build/@Status = 'PartiallySucceeded'">
-            <!-- _locID_text="PartiallySucceeded" --><xsl:value-of select="tb:Build/@BuildNumber"/> - Partially Succeeded
+            <!-- _locID_text="PartiallySucceeded" --><xsl:value-of select="tb:Build/@BuildNumber"/> - Passou Parcialmente
           </xsl:when>
           <xsl:when test="tb:Build/@Status = 'Failed'">
-            <!-- _locID_text="Failed" --><xsl:value-of select="tb:Build/@BuildNumber"/> - Failed
+            <!-- _locID_text="Failed" --><xsl:value-of select="tb:Build/@BuildNumber"/> - Falhou
           </xsl:when>
           <xsl:otherwise>
-            <!-- _locID_text="Stopped" --><xsl:value-of select="tb:Build/@BuildNumber"/> - Stopped
+            <!-- _locID_text="Stopped" --><xsl:value-of select="tb:Build/@BuildNumber"/> - Interrompido
           </xsl:otherwise>
         </xsl:choose>
       </xsl:otherwise>
@@ -51,12 +51,12 @@
       <xsl:with-param name="uri" select="tb:Uri"/>
     </xsl:call-template>
     <xsl:call-template name="SectionDivider" />
-    <!-- _locID_text="RequestSummary" -->Request Summary
+    <!-- _locID_text="RequestSummary" -->Sumário da Requisição
 <xsl:apply-templates select="tb:Requests/tb:QueuedBuild">
       <xsl:sort select="@Id"/>
     </xsl:apply-templates>
     <xsl:call-template name="SectionDivider" />
-    <!-- _locID_text="BuildSummary" -->Summary
+    <!-- _locID_text="BuildSummary" -->Sumário
     <xsl:apply-templates select="tb:Build/tb:Information/tb:BuildInformationNode[@Type = 'ConfigurationSummary']">
       <xsl:sort select="tb:Fields/tb:InformationField[@Name = 'Platform']/@Value"/>
     </xsl:apply-templates>
@@ -66,13 +66,13 @@
         <xsl:with-param name="depth" select="1"/>
         <xsl:with-param name="indentChars" select="'    '"/>
       </xsl:call-template>
-      <!-- _locID_text="OtherErrors" --><xsl:text>Other Errors</xsl:text>
+      <!-- _locID_text="OtherErrors" --><xsl:text>Outros Erros</xsl:text>
       <xsl:text>&#xA;</xsl:text>
       <xsl:call-template name="indent">
         <xsl:with-param name="depth" select="1"/>
         <xsl:with-param name="indentChars" select="'    '"/>
       </xsl:call-template>
-      <xsl:value-of select="$otherErrors"/><xsl:text> error(s)</xsl:text>
+      <xsl:value-of select="$otherErrors"/><xsl:text> erro(s)</xsl:text>
       <xsl:text>&#xA;</xsl:text>
       <xsl:apply-templates select="tb:Build/tb:Information/tb:BuildInformationNode[@Type = 'BuildError' and (count(@ParentId) = 0 or @ParentId = 0)]"/>
     </xsl:if>
@@ -111,7 +111,7 @@
       <xsl:with-param name="depth" select="2"/>
       <xsl:with-param name="indentChars" select="'    '"/>
     </xsl:call-template>
-    <!-- _locID_text="ProjectSummary" --><xsl:value-of select="tb:Fields/tb:InformationField[@Name = 'ServerPath']/@Value"/><xsl:text> - </xsl:text><xsl:value-of select="tb:Fields/tb:InformationField[@Name = 'CompilationErrors']/@Value"/><!-- _locID_text="Errors" --><xsl:text> error(s), </xsl:text><xsl:value-of select="tb:Fields/tb:InformationField[@Name = 'CompilationWarnings']/@Value"/><!-- _locID_text="Warnings" --><xsl:text> warning(s)&#xA;</xsl:text>
+    <!-- _locID_text="ProjectSummary" --><xsl:value-of select="tb:Fields/tb:InformationField[@Name = 'ServerPath']/@Value"/><xsl:text> - </xsl:text><xsl:value-of select="tb:Fields/tb:InformationField[@Name = 'CompilationErrors']/@Value"/><!-- _locID_text="Errors" --><xsl:text> erro(s), </xsl:text><xsl:value-of select="tb:Fields/tb:InformationField[@Name = 'CompilationWarnings']/@Value"/><!-- _locID_text="Warnings" --><xsl:text> aviso(s)&#xA;</xsl:text>
     <xsl:apply-templates select="../tb:BuildInformationNode[@Type = 'BuildError' and @ParentId = $nodeId]"/>
   </xsl:template>
 
@@ -124,7 +124,7 @@
       <xsl:with-param name="depth" select="1"/>
       <xsl:with-param name="indentChars" select="'    '"/>
     </xsl:call-template>
-    <xsl:value-of select="tb:Fields/tb:InformationField[@Name = 'TotalCompilationErrors']/@Value"/><!-- _locID_text="Errors" --><xsl:text> error(s), </xsl:text><xsl:value-of select="tb:Fields/tb:InformationField[@Name = 'TotalCompilationWarnings']/@Value"/><!-- _locID_text="Warnings" --><xsl:text> warning(s)&#xA;</xsl:text>
+    <xsl:value-of select="tb:Fields/tb:InformationField[@Name = 'TotalCompilationErrors']/@Value"/><!-- _locID_text="Errors" --><xsl:text> erro(s), </xsl:text><xsl:value-of select="tb:Fields/tb:InformationField[@Name = 'TotalCompilationWarnings']/@Value"/><!-- _locID_text="Warnings" --><xsl:text> aviso(s)&#xA;</xsl:text>
     <xsl:apply-templates select="../tb:BuildInformationNode[@Type = 'BuildProject'][count(tb:Fields/tb:InformationField[@Name = 'Platform' and @Value = $platform]) > 0][count(tb:Fields/tb:InformationField[@Name = 'Flavor' and @Value = $flavor]) > 0]"/>
   </xsl:template>
 
@@ -138,12 +138,12 @@
     <xsl:choose>
       <xsl:when test="@Reason = 'CheckInShelveset'">
         <xsl:choose>
-          <xsl:when test="$changesetId > 0"><!-- _locID_text="RequestCheckInCommitted" -->Request <xsl:value-of select="$requestId"/>, requested by <xsl:value-of select="@RequestedForDisplayName"/>, Check-in Committed</xsl:when>
-          <xsl:when test="$changesetId = 0"><!-- _locID_text="RequestNoChangesCheckedIn" -->Request <xsl:value-of select="$requestId"/>, requested by <xsl:value-of select="@RequestedForDisplayName"/>, No Changes Checked In</xsl:when>
-          <xsl:otherwise><!-- _locID_text="RequestCheckInRejected" -->Request <xsl:value-of select="$requestId"/>, requested by <xsl:value-of select="@RequestedForDisplayName"/>, Check-in Rejected</xsl:otherwise>
+          <xsl:when test="$changesetId > 0"><!-- _locID_text="RequestCheckInCommitted" -->Requisição <xsl:value-of select="$requestId"/>, realizada por <xsl:value-of select="@RequestedForDisplayName"/>, Check-in Realizado</xsl:when>
+          <xsl:when test="$changesetId = 0"><!-- _locID_text="RequestNoChangesCheckedIn" -->Requisição <xsl:value-of select="$requestId"/>, realizada por <xsl:value-of select="@RequestedForDisplayName"/>, Nenhum Check-in realizado</xsl:when>
+          <xsl:otherwise><!-- _locID_text="RequestCheckInRejected" -->Requisição <xsl:value-of select="$requestId"/>, realizada por <xsl:value-of select="@RequestedForDisplayName"/>, Check-in Negado</xsl:otherwise>
         </xsl:choose>
       </xsl:when>
-      <xsl:otherwise><!-- _locID_text="RequestCompleted" -->Request <xsl:value-of select="$requestId"/>, requested by <xsl:value-of select="@RequestedForDisplayName"/>, Completed</xsl:otherwise>
+      <xsl:otherwise><!-- _locID_text="RequestCompleted" -->Requisição <xsl:value-of select="$requestId"/>, realizada por <xsl:value-of select="@RequestedForDisplayName"/>, Finalizado</xsl:otherwise>
     </xsl:choose>
     <xsl:text>&#xA;</xsl:text>
   </xsl:template>
@@ -152,6 +152,7 @@
   <xsl:template name="VisualStudioLink">
     <xsl:param name="uri"/>
     <!-- _locID_text="OpenInVS" -->Copy and paste the following into your web browser to open the code review in Visual Studio
+	<!-- _locID_text="OpenInVS" -->Copie e cole a URL a seguir no seu navegador para abrir o Code Review no Visual Studio
     <xsl:text>&#xA;</xsl:text>
     <xsl:value-of select="$uri" />
   </xsl:template>

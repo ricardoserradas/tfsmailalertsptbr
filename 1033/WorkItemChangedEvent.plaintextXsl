@@ -2,77 +2,77 @@
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
 <xsl:import href="TeamFoundation.xsl"/> <!-- Common TeamSystem elements -->
   <xsl:template match="WorkItemChangedEvent">
-<!-- _locID_text="WorkItemCapital"-->WORK ITEM <xsl:if test="ChangeType[.='New']"><!-- _locID_text="CreatedCapital"-->CREATED</xsl:if><xsl:if test="ChangeType[.='Change']"><!-- _locID_text="ChangedCapital"-->CHANGED</xsl:if>: <xsl:for-each select="CoreFields/StringFields/Field"><xsl:if test="Name[.='Work Item Type']"><xsl:value-of select="NewValue"/></xsl:if></xsl:for-each><xsl:text>&#x20;</xsl:text><xsl:for-each select="CoreFields/IntegerFields/Field"><xsl:if test="Name[.='ID']"><xsl:value-of select="NewValue"/></xsl:if></xsl:for-each> - <xsl:value-of select="WorkItemTitle" /><xsl:text>&#x20;</xsl:text>(<xsl:value-of disable-output-escaping="yes" select="DisplayUrl" />)
+<!-- _locID_text="WorkItemCapital"-->WORK ITEM <xsl:if test="ChangeType[.='New']"><!-- _locID_text="CreatedCapital"-->CRIADO</xsl:if><xsl:if test="ChangeType[.='Change']"><!-- _locID_text="ChangedCapital"-->MODIFICADO</xsl:if>: <xsl:for-each select="CoreFields/StringFields/Field"><xsl:if test="Name[.='Work Item Type']"><xsl:value-of select="NewValue"/></xsl:if></xsl:for-each><xsl:text>&#x20;</xsl:text><xsl:for-each select="CoreFields/IntegerFields/Field"><xsl:if test="Name[.='ID']"><xsl:value-of select="NewValue"/></xsl:if></xsl:for-each> - <xsl:value-of select="WorkItemTitle" /><xsl:text>&#x20;</xsl:text>(<xsl:value-of disable-output-escaping="yes" select="DisplayUrl" />)
 --------------------------------------------------
 <xsl:text></xsl:text>
 <!-- _locID_text="TeamProjectColon"-->Team project: <xsl:value-of select="PortfolioProject" />
-<!-- _locID_text="AreaColon"-->Area: <xsl:value-of select="AreaPath" />
-<!-- _locID_text="IterationColon"-->Iteration: <xsl:for-each select="CoreFields/StringFields/Field"><xsl:if test="ReferenceName[.='System.IterationPath']"><xsl:value-of select="NewValue"/></xsl:if></xsl:for-each>
-<!-- _locID_text="AssignedToColon"-->Assigned to: <xsl:for-each select="CoreFields/StringFields/Field"><xsl:if test="ReferenceName[.='System.AssignedTo']"><xsl:value-of select="NewValue"/></xsl:if></xsl:for-each>
-<!-- _locID_text="StateColon"-->State: <xsl:for-each select="CoreFields/StringFields/Field"><xsl:if test="ReferenceName[.='System.State']"><xsl:value-of select="NewValue"/></xsl:if></xsl:for-each>
-<!-- _locID_text="ReasonColon"-->Reason: <xsl:for-each select="CoreFields/StringFields/Field"><xsl:if test="ReferenceName[.='System.Reason']"><xsl:value-of select="NewValue"/></xsl:if></xsl:for-each>
-<xsl:text>&#xD;</xsl:text><xsl:if test="ChangeType[.='New']"><!-- _locID_text="CreatedByColon"-->Created by:</xsl:if><xsl:if test="ChangeType[.='Change']"><!-- _locID_text="ChangedByColon"-->Changed by:</xsl:if><xsl:text>&#x20;</xsl:text><xsl:for-each select="CoreFields/StringFields/Field"><xsl:if test="ReferenceName[.='System.ChangedBy']"><xsl:value-of select="NewValue"/></xsl:if></xsl:for-each> 
-<xsl:text>&#xD;</xsl:text><xsl:if test="ChangeType[.='New']"><!-- _locID_text="CreatedDateColon"-->Created date:</xsl:if><xsl:if test="ChangeType[.='Change']"><!-- _locID_text="ChangedDateColon"-->Changed date:</xsl:if><xsl:text>&#x20;</xsl:text><xsl:for-each select="CoreFields/StringFields/Field"><xsl:if test="ReferenceName[.='System.ChangedDate']"><xsl:value-of select="NewValue"/></xsl:if></xsl:for-each> 
+<!-- _locID_text="AreaColon"-->Área: <xsl:value-of select="AreaPath" />
+<!-- _locID_text="IterationColon"-->Iteração: <xsl:for-each select="CoreFields/StringFields/Field"><xsl:if test="ReferenceName[.='System.IterationPath']"><xsl:value-of select="NewValue"/></xsl:if></xsl:for-each>
+<!-- _locID_text="AssignedToColon"-->Atribuído à: <xsl:for-each select="CoreFields/StringFields/Field"><xsl:if test="ReferenceName[.='System.AssignedTo']"><xsl:value-of select="NewValue"/></xsl:if></xsl:for-each>
+<!-- _locID_text="StateColon"-->Estado: <xsl:for-each select="CoreFields/StringFields/Field"><xsl:if test="ReferenceName[.='System.State']"><xsl:value-of select="NewValue"/></xsl:if></xsl:for-each>
+<!-- _locID_text="ReasonColon"-->Razão: <xsl:for-each select="CoreFields/StringFields/Field"><xsl:if test="ReferenceName[.='System.Reason']"><xsl:value-of select="NewValue"/></xsl:if></xsl:for-each>
+<xsl:text>&#xD;</xsl:text><xsl:if test="ChangeType[.='New']"><!-- _locID_text="CreatedByColon"-->Criado por:</xsl:if><xsl:if test="ChangeType[.='Change']"><!-- _locID_text="ChangedByColon"-->Modificado por:</xsl:if><xsl:text>&#x20;</xsl:text><xsl:for-each select="CoreFields/StringFields/Field"><xsl:if test="ReferenceName[.='System.ChangedBy']"><xsl:value-of select="NewValue"/></xsl:if></xsl:for-each> 
+<xsl:text>&#xD;</xsl:text><xsl:if test="ChangeType[.='New']"><!-- _locID_text="CreatedDateColon"-->Data da criação:</xsl:if><xsl:if test="ChangeType[.='Change']"><!-- _locID_text="ChangedDateColon"-->Data da modificação:</xsl:if><xsl:text>&#x20;</xsl:text><xsl:for-each select="CoreFields/StringFields/Field"><xsl:if test="ReferenceName[.='System.ChangedDate']"><xsl:value-of select="NewValue"/></xsl:if></xsl:for-each> 
 
 <xsl:if test="boolean(/WorkItemChangedEvent/ChangedFields/IntegerFields/Field) or boolean(/WorkItemChangedEvent/ChangedFields/StringFields/Field) or boolean(/WorkItemChangedEvent/TextFields/TextField)">
 <xsl:if test="ChangeType[.='New']">
 
-<!-- _locID_text="OtherFieldsHeader"-->--------------- OTHER FIELDS ----------------
+<!-- _locID_text="OtherFieldsHeader"-->--------------- OUTROS CAMPOS ----------------
 </xsl:if>
 <xsl:if test="ChangeType[.='Change']">
 
-<!-- _locID_text="ChangedFieldsHeader"-->--------------- CHANGED FIELDS ----------------
+<!-- _locID_text="ChangedFieldsHeader"-->--------------- CAMPOS MODIFICADOS ----------------
 </xsl:if>
 </xsl:if>
 <xsl:for-each select="TextFields/TextField">
-<!-- _locID_text="FieldColonText1"-->Field: <xsl:value-of select="Name"/>
-<!-- _locID_text="NewValueColonText1"-->New value: <xsl:value-of disable-output-escaping="yes" select="Value"/><xsl:text>&#xD;</xsl:text><xsl:text>&#xD;</xsl:text>
+<!-- _locID_text="FieldColonText1"-->Campo: <xsl:value-of select="Name"/>
+<!-- _locID_text="NewValueColonText1"-->Novo valor: <xsl:value-of disable-output-escaping="yes" select="Value"/><xsl:text>&#xD;</xsl:text><xsl:text>&#xD;</xsl:text>
 </xsl:for-each>
 <xsl:if test="ChangeType[.='Change']">    
   <xsl:for-each select="ChangedFields/IntegerFields/Field">
-<!-- _locID_text="FieldColonText2"-->Field: <xsl:value-of select="Name" />
-<!-- _locID_text="NewValueColonText2"-->New value: <xsl:value-of select="NewValue"/><xsl:text>&#xD;</xsl:text>
-<!-- _locID_text="OldValueColonText2"-->Old value: <xsl:value-of select="OldValue"/><xsl:text>&#xD;</xsl:text><xsl:text>&#xD;</xsl:text>
+<!-- _locID_text="FieldColonText2"-->Campo: <xsl:value-of select="Name" />
+<!-- _locID_text="NewValueColonText2"-->Novo valor: <xsl:value-of select="NewValue"/><xsl:text>&#xD;</xsl:text>
+<!-- _locID_text="OldValueColonText2"-->Valor antigo: <xsl:value-of select="OldValue"/><xsl:text>&#xD;</xsl:text><xsl:text>&#xD;</xsl:text>
   </xsl:for-each>      
   <xsl:for-each select="ChangedFields/StringFields/Field">
-<!-- _locID_text="FieldColonText3"-->Field: <xsl:value-of select="Name"/> 
-<!-- _locID_text="NewValueColonText3"-->New value: <xsl:value-of select="NewValue"/><xsl:text>&#xD;</xsl:text>
-<!-- _locID_text="OldValueColonText3"-->Old value: <xsl:value-of select="OldValue"/><xsl:text>&#xD;</xsl:text><xsl:text>&#xD;</xsl:text>    
+<!-- _locID_text="FieldColonText3"-->Campo: <xsl:value-of select="Name"/> 
+<!-- _locID_text="NewValueColonText3"-->Novo valor: <xsl:value-of select="NewValue"/><xsl:text>&#xD;</xsl:text>
+<!-- _locID_text="OldValueColonText3"-->Valor antigo: <xsl:value-of select="OldValue"/><xsl:text>&#xD;</xsl:text><xsl:text>&#xD;</xsl:text>    
   </xsl:for-each>
 </xsl:if>
 <xsl:if test="ChangeType[.='New']">    
   <xsl:for-each select="ChangedFields/IntegerFields/Field">
-<!-- _locID_text="FieldColonText4"-->Field: <xsl:value-of select="Name"/>
-<!-- _locID_text="NewValueColonText4"-->New value: <xsl:value-of select="NewValue"/><xsl:text>&#xD;</xsl:text>
+<!-- _locID_text="FieldColonText4"-->Campo: <xsl:value-of select="Name"/>
+<!-- _locID_text="NewValueColonText4"-->Novo valor: <xsl:value-of select="NewValue"/><xsl:text>&#xD;</xsl:text>
   </xsl:for-each>      
   <xsl:for-each select="ChangedFields/StringFields/Field">
   <xsl:if test="ReferenceName[.!='System.ChangedBy']">      
-<!-- _locID_text="FieldColonText5"-->Field: <xsl:value-of select="Name"/>
-<!-- _locID_text="NewValueColonText5"-->New value: <xsl:value-of select="NewValue"/><xsl:text>&#xD;</xsl:text>
+<!-- _locID_text="FieldColonText5"-->Campo: <xsl:value-of select="Name"/>
+<!-- _locID_text="NewValueColonText5"-->Novo valor: <xsl:value-of select="NewValue"/><xsl:text>&#xD;</xsl:text>
   </xsl:if>
   </xsl:for-each>    
 </xsl:if>
 <xsl:if test="boolean(/WorkItemChangedEvent/AddedFiles) or boolean(/WorkItemChangedEvent/AddedResourceLinks) or boolean(/WorkItemChangedEvent/AddedRelations) or boolean(/WorkItemChangedEvent/DeletedFiles) or boolean(/WorkItemChangedEvent/DeletedResourceLinks) or boolean(/WorkItemChangedEvent/ChangedResourceLinks) or boolean(/WorkItemChangedEvent/DeletedRelations) or boolean(/WorkItemChangedEvent/ChangedRelations)">
 
-<!-- _locID_text="LinksAndAttachmentsHeader"-->--------------- LINKS AND ATTACHMENTS ----------------
+<!-- _locID_text="LinksAndAttachmentsHeader"-->--------------- LINKS E ANEXOS ----------------
 <xsl:for-each select="AddedFiles/AddedFile">
-<!-- _locID_text="FileAttachmentColon"-->File Attachment: <xsl:value-of select="Name"/>
+<!-- _locID_text="FileAttachmentColon"-->Arquivo Anexo: <xsl:value-of select="Name"/>
 </xsl:for-each>
 <xsl:for-each select="AddedResourceLinks/AddedResourceLink">
 <!-- _locID_text="LinkColon"-->Link: <xsl:value-of select="Resource"/>
 </xsl:for-each>
 <xsl:for-each select="AddedRelations/AddedRelation">
-<xsl:choose><xsl:when test="string-length(LinkName)"><xsl:value-of select="LinkName"/></xsl:when><xsl:otherwise><!-- _locID_text="RelatedWorkItem" -->Related</xsl:otherwise></xsl:choose><!-- _locID_text="ColonSpace" -->: <xsl:value-of select="WorkItemId"/>
+<xsl:choose><xsl:when test="string-length(LinkName)"><xsl:value-of select="LinkName"/></xsl:when><xsl:otherwise><!-- _locID_text="RelatedWorkItem" -->Relacionado</xsl:otherwise></xsl:choose><!-- _locID_text="ColonSpace" -->: <xsl:value-of select="WorkItemId"/>
 </xsl:for-each>
 <xsl:text>&#xD;</xsl:text>
 <xsl:if test="boolean(/WorkItemChangedEvent/DeletedFiles) or boolean(/WorkItemChangedEvent/DeletedResourceLinks) or boolean(/WorkItemChangedEvent/ChangedResourceLinks) or boolean(/WorkItemChangedEvent/DeletedRelations) or boolean(/WorkItemChangedEvent/ChangedRelations)">
 <xsl:text>&#xD;</xsl:text>
 </xsl:if>
-<xsl:if test="boolean(/WorkItemChangedEvent/DeletedFiles)" ><!-- _locID_text="OneOrMoreAttachmentsDeleted" -->1 or more attachments have been deleted.  See work item for details.<xsl:text>&#xD;</xsl:text></xsl:if> 
-<xsl:if test="boolean(/WorkItemChangedEvent/DeletedResourceLinks)" ><!-- _locID_text="OneOrMoreLinksDeleted" -->1 or more links have been deleted.  See work item for details.<xsl:text>&#xD;</xsl:text></xsl:if>
-<xsl:if test="boolean(/WorkItemChangedEvent/ChangedResourceLinks)"><!-- _locID_text="OneOrMoreLinksChanged" -->1 or more links have been changed.  See work item for details.<xsl:text>&#xD;</xsl:text></xsl:if>
- <xsl:if test="boolean(/WorkItemChangedEvent/DeletedRelations)"><!-- _locID_text="OneOrMoreRelatedWorkItemsDeleted" -->1 or more related work items have been deleted.  See work item for details.<xsl:text>&#xD;</xsl:text></xsl:if>
- <xsl:if test="boolean(/WorkItemChangedEvent/ChangedRelations)" ><!-- _locID_text="OneOrMOreRelatedWorkItemsChanged"-->1 or more related work items have been changed.  See work item for details.<xsl:text>&#xD;</xsl:text>
+<xsl:if test="boolean(/WorkItemChangedEvent/DeletedFiles)" ><!-- _locID_text="OneOrMoreAttachmentsDeleted" -->1 ou mais anexos foram excluídos.  Veja o work item para mais detalhes.<xsl:text>&#xD;</xsl:text></xsl:if> 
+<xsl:if test="boolean(/WorkItemChangedEvent/DeletedResourceLinks)" ><!-- _locID_text="OneOrMoreLinksDeleted" -->1 ou mais links foram excluídos.  Veja o work item para mais detalhes.<xsl:text>&#xD;</xsl:text></xsl:if>
+<xsl:if test="boolean(/WorkItemChangedEvent/ChangedResourceLinks)"><!-- _locID_text="OneOrMoreLinksChanged" -->1 ou mais links foram modificados.  Veja o work item para mais detalhes.<xsl:text>&#xD;</xsl:text></xsl:if>
+ <xsl:if test="boolean(/WorkItemChangedEvent/DeletedRelations)"><!-- _locID_text="OneOrMoreRelatedWorkItemsDeleted" -->1 ou mais work items relacionados foram excluídos.  Veja o work item para mais detalhes.<xsl:text>&#xD;</xsl:text></xsl:if>
+ <xsl:if test="boolean(/WorkItemChangedEvent/ChangedRelations)" ><!-- _locID_text="OneOrMOreRelatedWorkItemsChanged"-->1 ou mais work items relacionados foram modificados.  Veja o work item para mais detalhes.<xsl:text>&#xD;</xsl:text>
 </xsl:if>  
 <xsl:text>&#xD;</xsl:text>
 </xsl:if>

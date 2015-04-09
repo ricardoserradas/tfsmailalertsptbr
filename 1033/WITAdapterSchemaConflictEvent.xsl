@@ -3,8 +3,8 @@
   <xsl:import href="TeamFoundation.xsl"/>
 
   <!-- Common strings -->
-  <xsl:variable name="name"><!-- _locID_text="name"-->Name</xsl:variable>
-  <xsl:variable name="referenceName"><!-- _locID_text="referenceName"-->Reference Name</xsl:variable>
+  <xsl:variable name="name"><!-- _locID_text="name"-->Nome</xsl:variable>
+  <xsl:variable name="referenceName"><!-- _locID_text="referenceName"-->Nome da Referência</xsl:variable>
   
   <xsl:template match="WITAdapterSchemaConflictEvent">
     <head>
@@ -28,22 +28,22 @@
         </pre>
       </div>
       <br/>
-      <b _locID="summary">Summary</b>
+      <b _locID="summary">Sumário</b>
       <table style="table-layout: fixed">
         <tr>
-          <td _locID="targetCollection" class="PropName">Target Collection:</td>
+          <td _locID="targetCollection" class="PropName">Coleção Destino:</td>
           <td class="PropValue">
             <xsl:value-of select="TeamProjectCollectionName"/>
           </td>
         </tr>
         <tr>
-          <td _locID="notificationTime" class="PropName">Notification Time:</td>
+          <td _locID="notificationTime" class="PropName">Horário da Notificação:</td>
           <td class="PropValue">
             <xsl:value-of select="EventTime"/>
           </td>
         </tr>
         <tr>
-          <td _locID="blockedFields" class="PropName">Blocked Fields:</td>
+          <td _locID="blockedFields" class="PropName">Campos Bloqueados:</td>
           <td class="PropValue">
             <xsl:value-of select="count(Conflicts/Conflict)" />
           </td>
@@ -52,18 +52,18 @@
       <!-- Add the versioned items -->
       <xsl:if test="count(Conflicts) > 0">
         <br/>
-        <b _locID="conflicts">Conflicts</b>
+        <b _locID="conflicts">Conflitos</b>
         <table class="WithBorder">
           <tr>
-            <td class="ColHeading" colspan="2" align="center" _locID="blockedField"><b>Blocked Field</b></td>
-            <td class="ColHeading" colspan="3" align="center" _locID="conflictingField"><b>Conflicting Field</b></td>
+            <td class="ColHeading" colspan="2" align="center" _locID="blockedField"><b>Campo Bloqueado</b></td>
+            <td class="ColHeading" colspan="3" align="center" _locID="conflictingField"><b>Campo Conflitante</b></td>
           </tr>
           <tr>
             <td class="ColHeading"><b><xsl:value-of select="$name"/></b></td>
             <td class="ColHeading"><b><xsl:value-of select="$referenceName"/></b></td>
             <td class="ColHeading"><b><xsl:value-of select="$name"/></b></td>
             <td class="ColHeading"><b><xsl:value-of select="$referenceName"/></b></td>
-            <td class="ColHeading" _locID="collectionName"><b>Collection</b></td>
+            <td class="ColHeading" _locID="collectionName"><b>Coleção</b></td>
           </tr>
           <xsl:for-each select="Conflicts/Conflict">
             <xsl:call-template name="ConflictingFields">
