@@ -1,0 +1,178 @@
+﻿<?xml version='1.0'?>
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0" xmlns:tb="http://schemas.microsoft.com/TeamFoundation/2010/Build">
+  <!-- Common TeamSystem elements -->
+  <xsl:import href="TeamFoundation.xsl"/>
+  <xsl:output encoding="utf-8" indent="no" method="text" standalone="yes"/>
+
+  <xsl:template match="/">
+    <xsl:apply-templates select="*"/>
+  </xsl:template>
+
+  <xsl:template match="tb:BuildCompletedEvent">
+    <xsl:choose>
+      <xsl:when test="tb:Build/@Reason = 'CheckInShelveset'">
+        <xsl:variable name="totalRequests" select="count(tb:Requests/tb:QueuedBuild)" />
+        <xsl:variable name="succeededRequests" select="count(tb:Build/tb:Information/tb:BuildInformationNode[@Type = 'CheckInOutcome'][count(tb:Fields/tb:InformationField[@Name = 'RequestId' and @Value > 0]) > 0][count(tb:Fields/tb:InformationField[@Name = 'ChangesetId' and @Value > 0]) > 0])" />
+        <xsl:choose>
+          <xsl:when test="$totalRequests = 1">
+            <xsl:choose>
+              <xsl:when test="$succeededRequests = 0">
+                <!-- _locID_text="CheckInRejected" --><xsl:value-of select="tb:Build/@BuildNumber"/> - Check-in Rejected
+              </xsl:when>
+              <xsl:otherwise>
+                <!-- _locID_text="CheckInCommitted" --><xsl:value-of select="tb:Build/@BuildNumber"/> - Check-in Committed
+              </xsl:otherwise>
+            </xsl:choose>
+          </xsl:when>
+          <xsl:otherwise>
+            <!-- _locID_text="Committed_N_Requests"--><xsl:value-of select="tb:Build/@BuildNumber"/> - Committed <xsl:value-of select="$succeededRequests"/> Changesets for <xsl:value-of select="$totalRequests" /> Check-in Requests
+          </xsl:otherwise>
+        </xsl:choose>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:choose>
+          <xsl:when test="tb:Build/@Status = 'Succeeded'">
+            <!-- _locID_text="Succeeded" --><xsl:value-of select="tb:Build/@BuildNumber"/> - Succeeded
+          </xsl:when>
+          <xsl:when test="tb:Build/@Status = 'PartiallySucceeded'">
+            <!-- _locID_text="PartiallySucceeded" --><xsl:value-of select="tb:Build/@BuildNumber"/> - Partially Succeeded
+          </xsl:when>
+          <xsl:when test="tb:Build/@Status = 'Failed'">
+            <!-- _locID_text="Failed" --><xsl:value-of select="tb:Build/@BuildNumber"/> - Failed
+          </xsl:when>
+          <xsl:otherwise>
+            <!-- _locID_text="Stopped" --><xsl:value-of select="tb:Build/@BuildNumber"/> - Stopped
+          </xsl:otherwise>
+        </xsl:choose>
+      </xsl:otherwise>
+    </xsl:choose>
+    <xsl:call-template name="SectionDivider" />
+    <xsl:call-template name="VisualStudioLink">
+      <xsl:with-param name="uri" select="tb:Uri"/>
+    </xsl:call-template>
+    <xsl:call-template name="SectionDivider" />
+    <!-- _locID_text="RequestSummary" -->Request Summary
+<xsl:apply-templates select="tb:Requests/tb:QueuedBuild">
+      <xsl:sort select="@Id"/>
+    </xsl:apply-templates>
+    <xsl:call-template name="SectionDivider" />
+    <!-- _locID_text="BuildSummary" -->Summary
+    <xsl:apply-templates select="tb:Build/tb:Information/tb:BuildInformationNode[@Type = 'ConfigurationSummary']">
+      <xsl:sort select="tb:Fields/tb:InformationField[@Name = 'Platform']/@Value"/>
+    </xsl:apply-templates>
+    <xsl:variable name="otherErrors" select="count(tb:Build/tb:Information/tb:BuildInformationNode[@Type = 'BuildError' and (count(@ParentId) = 0 or @ParentId = 0)])"/>
+    <xsl:if test="$otherErrors > 0">
+      <xsl:call-template name="indent">
+        <xsl:with-param name="depth" select="1"/>
+        <xsl:with-param name="indentChars" select="'    '"/>
+      </xsl:call-template>
+      <!-- _locID_text="OtherErrors" --><xsl:text>Other Errors</xsl:text>
+      <xsl:text>&#xA;</xsl:text>
+      <xsl:call-template name="indent">
+        <xsl:with-param name="depth" select="1"/>
+        <xsl:with-param name="indentChars" select="'    '"/>
+      </xsl:call-template>
+      <xsl:value-of select="$otherErrors"/><xsl:text> error(s)</xsl:text>
+      <xsl:text>&#xA;</xsl:text>
+      <xsl:apply-templates select="tb:Build/tb:Information/tb:BuildInformationNode[@Type = 'BuildError' and (count(@ParentId) = 0 or @ParentId = 0)]"/>
+    </xsl:if>
+    <!-- Apply the standard TFS footer -->
+    <xsl:call-template name="footer">
+      <xsl:with-param name="format" select="'text'"/>
+      <xsl:with-param name="alertOwner" select="tb:Subscriber"/>
+      <xsl:with-param name="timeZoneOffset" select="tb:TimeZoneOffset"/>
+      <xsl:with-param name="timeZoneName" select="tb:TimeZone"/>
+    </xsl:call-template>
+  </xsl:template>
+
+  <!-- These errors go into the other errors category -->
+  <xsl:template match="tb:BuildInformationNode[@Type = 'BuildError' and (count(@ParentId) = 0 or @ParentId = 0)]">
+    <xsl:call-template name="indent">
+      <xsl:with-param name="depth" select="2"/>
+      <xsl:with-param name="indentChars" select="'    '"/>
+    </xsl:call-template>
+    <xsl:value-of select="tb:Fields/tb:InformationField[@Name = 'Message']/@Value"/>
+    <xsl:text>&#xA;</xsl:text>
+  </xsl:template>
+
+  <!-- These errors are associated with a project which was built -->
+  <xsl:template match="tb:BuildInformationNode[@Type = 'BuildError' and count(@ParentId) > 0 and @ParentId > 0]">
+    <xsl:call-template name="indent">
+      <xsl:with-param name="depth" select="3"/>
+      <xsl:with-param name="indentChars" select="'    '"/>
+    </xsl:call-template>
+    <xsl:value-of select="tb:Fields/tb:InformationField[@Name = 'File']/@Value"/> (<xsl:value-of select="tb:Fields/tb:InformationField[@Name = 'LineNumber']/@Value"/>): <xsl:value-of select="tb:Fields/tb:InformationField[@Name = 'Message']/@Value"/>
+    <xsl:text>&#xA;</xsl:text>
+  </xsl:template>
+
+  <xsl:template match="tb:BuildInformationNode[@Type = 'BuildProject']">
+    <xsl:variable name="nodeId" select="@NodeId"/>
+    <xsl:call-template name="indent">
+      <xsl:with-param name="depth" select="2"/>
+      <xsl:with-param name="indentChars" select="'    '"/>
+    </xsl:call-template>
+    <!-- _locID_text="ProjectSummary" --><xsl:value-of select="tb:Fields/tb:InformationField[@Name = 'ServerPath']/@Value"/><xsl:text> - </xsl:text><xsl:value-of select="tb:Fields/tb:InformationField[@Name = 'CompilationErrors']/@Value"/><!-- _locID_text="Errors" --><xsl:text> error(s), </xsl:text><xsl:value-of select="tb:Fields/tb:InformationField[@Name = 'CompilationWarnings']/@Value"/><!-- _locID_text="Warnings" --><xsl:text> warning(s)&#xA;</xsl:text>
+    <xsl:apply-templates select="../tb:BuildInformationNode[@Type = 'BuildError' and @ParentId = $nodeId]"/>
+  </xsl:template>
+
+  <xsl:template match="tb:BuildInformationNode[@Type = 'ConfigurationSummary']">
+    <xsl:variable name="platform" select="tb:Fields/tb:InformationField[@Name = 'Platform']/@Value" />
+    <xsl:variable name="flavor" select="tb:Fields/tb:InformationField[@Name = 'Flavor']/@Value" />
+    <xsl:value-of select="$flavor"/><xsl:text> | </xsl:text><xsl:value-of select="$platform"/>
+    <xsl:text>&#xA;</xsl:text>
+    <xsl:call-template name="indent">
+      <xsl:with-param name="depth" select="1"/>
+      <xsl:with-param name="indentChars" select="'    '"/>
+    </xsl:call-template>
+    <xsl:value-of select="tb:Fields/tb:InformationField[@Name = 'TotalCompilationErrors']/@Value"/><!-- _locID_text="Errors" --><xsl:text> error(s), </xsl:text><xsl:value-of select="tb:Fields/tb:InformationField[@Name = 'TotalCompilationWarnings']/@Value"/><!-- _locID_text="Warnings" --><xsl:text> warning(s)&#xA;</xsl:text>
+    <xsl:apply-templates select="../tb:BuildInformationNode[@Type = 'BuildProject'][count(tb:Fields/tb:InformationField[@Name = 'Platform' and @Value = $platform]) > 0][count(tb:Fields/tb:InformationField[@Name = 'Flavor' and @Value = $flavor]) > 0]"/>
+  </xsl:template>
+
+  <xsl:template match="tb:QueuedBuild">
+    <xsl:variable name="requestId" select="@Id"/>
+    <xsl:variable name="changesetId" select="../../tb:Build/tb:Information/tb:BuildInformationNode[@Type = 'CheckInOutcome'][count(tb:Fields/tb:InformationField[@Name = 'RequestId' and @Value = $requestId]) > 0]/tb:Fields/tb:InformationField[@Name = 'ChangesetId']/@Value"/>
+    <xsl:call-template name="indent">
+      <xsl:with-param name="depth" select="1"/>
+      <xsl:with-param name="indentChars" select="'    '"/>
+    </xsl:call-template>
+    <xsl:choose>
+      <xsl:when test="@Reason = 'CheckInShelveset'">
+        <xsl:choose>
+          <xsl:when test="$changesetId > 0"><!-- _locID_text="RequestCheckInCommitted" -->Request <xsl:value-of select="$requestId"/>, requested by <xsl:value-of select="@RequestedForDisplayName"/>, Check-in Committed</xsl:when>
+          <xsl:when test="$changesetId = 0"><!-- _locID_text="RequestNoChangesCheckedIn" -->Request <xsl:value-of select="$requestId"/>, requested by <xsl:value-of select="@RequestedForDisplayName"/>, No Changes Checked In</xsl:when>
+          <xsl:otherwise><!-- _locID_text="RequestCheckInRejected" -->Request <xsl:value-of select="$requestId"/>, requested by <xsl:value-of select="@RequestedForDisplayName"/>, Check-in Rejected</xsl:otherwise>
+        </xsl:choose>
+      </xsl:when>
+      <xsl:otherwise><!-- _locID_text="RequestCompleted" -->Request <xsl:value-of select="$requestId"/>, requested by <xsl:value-of select="@RequestedForDisplayName"/>, Completed</xsl:otherwise>
+    </xsl:choose>
+    <xsl:text>&#xA;</xsl:text>
+  </xsl:template>
+  
+  <!-- Template for loading Visual Studio -->
+  <xsl:template name="VisualStudioLink">
+    <xsl:param name="uri"/>
+    <!-- _locID_text="OpenInVS" -->Copy and paste the following into your web browser to open the code review in Visual Studio
+    <xsl:text>&#xA;</xsl:text>
+    <xsl:value-of select="$uri" />
+  </xsl:template>
+
+  <xsl:template name="SectionDivider">
+    <xsl:text>&#xA;</xsl:text>
+    <xsl:value-of select="$textSeparatorLong"/>
+    <xsl:text>&#xA;</xsl:text>
+    <xsl:text>&#xA;</xsl:text>
+  </xsl:template>
+
+  <xsl:template name="indent">
+    <xsl:param name="depth" select="0" />
+    <xsl:param name="indentChars" select="' '" />
+    <xsl:if test="$depth &gt; 0">
+      <xsl:value-of select="$indentChars" />
+      <xsl:call-template name="indent">
+        <xsl:with-param name="depth" select="$depth - 1" />
+        <xsl:with-param name="indentChars" select="$indentChars" />
+      </xsl:call-template>
+    </xsl:if>
+  </xsl:template>
+  
+</xsl:stylesheet>

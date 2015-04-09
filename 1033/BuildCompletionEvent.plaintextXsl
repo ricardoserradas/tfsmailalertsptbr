@@ -1,0 +1,28 @@
+﻿<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+<xsl:import href="TeamFoundation.xsl"/>
+<!-- Common TeamSystem elements -->
+<xsl:output indent="no"/>
+<xsl:template match="/">
+<xsl:call-template name="link">
+	<xsl:with-param name="format" select="'text'"/>
+	<xsl:with-param name="link" select="BuildCompletionEvent/Url"/>
+	<xsl:with-param name="displayText" select="BuildCompletionEvent/Title"/>
+</xsl:call-template>
+<xsl:text>&#xA;</xsl:text>
+<xsl:value-of select="$textSeparatorLong"/>
+<xsl:text>&#xA;</xsl:text>
+<!-- _locID_text="TeamProject" -->Team Project: <xsl:value-of select="BuildCompletionEvent/TeamProject"/>
+<!-- _locID_text="BuildNumber" -->Build Number: <xsl:value-of select="BuildCompletionEvent/Id"/>
+<!-- _locID_text="RequestedBy" -->Build started by: <xsl:value-of select="BuildCompletionEvent/RequestedBy"/>
+<!-- _locID_text="BuildMachine" -->Build machine: <xsl:value-of select="BuildCompletionEvent/BuildMachine"/>
+<!-- _locID_text="BuildStartTime" -->Build started on: <xsl:value-of select="BuildCompletionEvent/BuildStartTime"/>
+<!-- _locID_text="BuildCompleteTime" -->Build completed on: <xsl:value-of select="BuildCompletionEvent/BuildCompleteTime"/>
+<xsl:text>&#xA;</xsl:text>
+	<xsl:call-template name="footer">
+	<xsl:with-param name="format" select="'text'"/>
+	<xsl:with-param name="alertOwner" select="BuildCompletionEvent/Subscriber"/>
+	<xsl:with-param name="timeZoneOffset" select="BuildCompletionEvent/TimeZoneOffset"/>
+	<xsl:with-param name="timeZoneName" select="BuildCompletionEvent/TimeZone"/>
+</xsl:call-template><xsl:text/>
+</xsl:template>
+</xsl:stylesheet>

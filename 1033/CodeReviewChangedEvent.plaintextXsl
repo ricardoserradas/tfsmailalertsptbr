@@ -1,0 +1,223 @@
+<?xml version='1.0'?>
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ms="urn:schemas-microsoft-com:xslt" version="1.0">
+    <!-- Common TeamSystem elements -->
+    <xsl:import href="TeamFoundation.xsl" />
+    <xsl:output encoding="utf-8" indent="no" method="text" standalone="yes" />
+
+    <xsl:template match="/">
+        <xsl:apply-templates select="*" />
+    </xsl:template>
+
+    <!-- Define a key for the changes based on the parent path so we can group -->
+    <xsl:key name="items-by-folder" match="ReviewContext/Changes/Change" use="translate(@ParentPath,'abcdefghijklmnopqrstuvwxyz','ABCDEFGHIJKLMNOPQRSTUVWXYZ')"/>
+    <xsl:key name="discussions-by-item" match="Discussions/ReviewDiscussion" use="@FilePath" />
+    <xsl:template match="CodeReviewChangedEvent">
+        <xsl:variable name="changedBy" select="ChangedBy"/>
+        <xsl:variable name="subscriber" select="Subscriber"/>
+        <xsl:variable name="workItemId" select="SourceWorkItem/Id" />
+        <xsl:variable name="added" select="Reviewers/Reviewer[@Status = 'Added']/@Name"/>
+        <xsl:variable name="removed" select="Reviewers/Reviewer[@Status = 'Removed']/@Name"/>
+        <xsl:variable name="reason" select="Reviewers/Reviewer[@Status = 'Reviewed' and @Name=$changedBy]/@Resolution"/>
+        <xsl:variable name="closingReason">
+            <xsl:if test="count(ClosingComment) > 0 and string-length(ClosingComment) > 0">
+                <!-- locID_text="ClosingReason" -->(Reason: <xsl:value-of select="ClosingComment" />)
+            </xsl:if>
+        </xsl:variable>
+      <xsl:text>You can receive emails with richer data by subscribing to HTML-formatted emails.&#xA;</xsl:text>
+      <xsl:call-template name="SectionDivider" />
+        <xsl:choose>
+            <xsl:when test="Action = 'Abandoned'"><!-- _locID_text="TitleAbandoned" --><xsl:value-of select="$changedBy"/> has abandoned the code review.</xsl:when>
+            <xsl:when test="Action = 'Completed'"><!-- _locID_text="TitleCompleted" --><xsl:value-of select="$changedBy"/> has closed the code review.</xsl:when>
+            <xsl:when test="Action = 'Declined'"><!-- _locID_text="TitleDeclined" --><xsl:value-of select="$changedBy"/> has declined <xsl:value-of select="$closingReason" />.</xsl:when>
+            <xsl:when test="Action = 'Discussion'">
+                <xsl:variable name="newCommentCount" select="count(Discussions/ReviewDiscussion/Comments//ReviewComment[@IsNew])" />
+                <xsl:variable name="commentText">
+                    <xsl:choose>
+                        <xsl:when test="$newCommentCount = 1"><!-- _locID_text="Comment1" --><xsl:value-of select="$newCommentCount" /> comment</xsl:when>
+                        <xsl:when test="$newCommentCount > 1"><!-- _locID_text="CommentN" --><xsl:value-of select="$newCommentCount" /> comments</xsl:when>
+                    </xsl:choose>
+                </xsl:variable>
+                <xsl:choose>
+                    <xsl:when test="$newCommentCount > 0"><!-- _locID_text="TitleDiscussion1" --><xsl:value-of select="$changedBy"/> has posted <xsl:value-of select="$commentText" />.</xsl:when>
+                    <xsl:otherwise><!-- _locID_text="TitleDiscussion2" --><xsl:value-of select="$changedBy"/> has posted feedback.</xsl:otherwise>
+                </xsl:choose>
+            </xsl:when>
+            <xsl:when test="Action = 'Requested'"><!-- _locID_text="TitleRequested" -->Your feedback has been requested by <xsl:value-of select="RequestedBy"/>.</xsl:when>
+            <xsl:when test="Action = 'Accepted'"><!-- _locID_text="TitleAccepted" --><xsl:value-of select="ChangedBy"/> has accepted.</xsl:when>
+            <xsl:when test="Action = 'Reviewed'">
+                <xsl:choose>
+                  <xsl:when test="$reason = 'LooksGood'">
+                    <xsl:value-of select="ChangedBy"/><!-- _locID_text="ReviewerFinishedLooksGood" --> has finished (looks good).
+                  </xsl:when>
+                  <xsl:when test="$reason = 'WithComments'">
+                    <xsl:value-of select="ChangedBy"/><!-- _locID_text="ReviewerFinishedWithComments" --> has finished (with comments).
+                  </xsl:when>
+                  <xsl:when test="$reason = 'NeedsWork'">
+                    <xsl:value-of select="ChangedBy"/><!-- _locID_text="ReviewerFinishedNeedsWork" --> has finished (needs work).
+                  </xsl:when>
+                  <xsl:otherwise>
+                    <xsl:value-of select="ChangedBy"/><!-- _locID_text="ReviewerFinished" --> has finished.
+                  </xsl:otherwise>
+                </xsl:choose>
+            </xsl:when>
+            <xsl:when test="Action = 'ReviewerAdded'">
+                  <xsl:choose>
+                      <xsl:when test="$added = $subscriber">
+                          <xsl:choose>
+                              <xsl:when test="$added = $changedBy"><!-- _locID_text="TitleAdded" -->Your feedback has been requested.</xsl:when>
+                              <xsl:otherwise><!-- _locID_text="TitleAddedBy" -->Your feedback has been requested by <xsl:value-of select="$changedBy"/>.</xsl:otherwise>
+                          </xsl:choose>
+                      </xsl:when>
+                      <xsl:otherwise>
+                          <xsl:choose>
+                              <xsl:when test="$added = $changedBy"><!-- _locID_text="TitleAdded1" --><xsl:value-of select="$added"/> has been added.</xsl:when>
+                              <xsl:otherwise><!-- _locID_text="TitleAddedBy1" --><xsl:value-of select="$added"/> has been added by <xsl:value-of select="$changedBy"/>.</xsl:otherwise>
+                          </xsl:choose>
+                      </xsl:otherwise>
+                  </xsl:choose>
+              </xsl:when>
+            <xsl:when test="Action = 'ReviewerRemoved'">
+                <xsl:choose>
+                    <xsl:when test="$removed = $subscriber">
+                        <xsl:choose>
+                            <xsl:when test="$removed = $changedBy"><!-- _locID_text="TitleRemoved" -->You have been removed <xsl:value-of select="$closingReason" />.</xsl:when>
+                            <xsl:otherwise><!-- _locID_text="TitleRemovedBy" -->You have been removed by <xsl:value-of select="$changedBy"/> <xsl:value-of select="$closingReason" />.</xsl:otherwise>
+                        </xsl:choose>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:choose>
+                            <xsl:when test="$removed = $changedBy"><!-- _locID_text="TitleRemoved1" --><xsl:value-of select="$removed"/> has been removed <xsl:value-of select="$closingReason" />.</xsl:when>
+                            <xsl:otherwise><!-- _locID_text="TitleRemovedBy1" --><xsl:value-of select="$removed"/> has been removed by <xsl:value-of select="$changedBy"/> <xsl:value-of select="$closingReason" />.</xsl:otherwise>
+                        </xsl:choose>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:when>
+        </xsl:choose>
+      <xsl:text>&#xA;</xsl:text>
+      <xsl:call-template name="SectionDivider" />
+      <xsl:call-template name="VisualStudioLink">
+        <xsl:with-param name="uri" select="Uri"/>
+      </xsl:call-template>
+      <xsl:call-template name="SectionDivider" />
+      <xsl:for-each select="Discussions/ReviewDiscussion[count(@FilePath) = 0]">
+        <xsl:apply-templates select="Comments" />
+      </xsl:for-each>
+      <xsl:if test="Action = 'Completed' or Action = 'Discussion' or Action = 'Reviewed'">
+        <xsl:for-each select="Discussions/ReviewDiscussion[not(@FilePath = preceding-sibling::ReviewDiscussion/@FilePath)]">
+          <xsl:if test="count(key('discussions-by-item', @FilePath)//ReviewComment) > 0">
+            <xsl:text>&#xA;</xsl:text>
+            <xsl:value-of select="@FilePath"/>
+            <xsl:text>&#xA;</xsl:text>
+            <xsl:apply-templates select="key('discussions-by-item', @FilePath)" />
+          </xsl:if>
+        </xsl:for-each>
+      </xsl:if>
+      <xsl:call-template name="SectionDivider" />
+      <!-- _locID_text="Reviewers" -->Reviewers
+      <xsl:text>&#xA;</xsl:text>
+      <xsl:choose>
+        <xsl:when test="count(Reviewers/Reviewer[@Status != 'Declined' and @Status != 'Removed']) > 0">
+          <xsl:apply-templates select="Reviewers/Reviewer[@Status != 'Declined' and @Status != 'Removed']"/>
+        </xsl:when>
+        <xsl:otherwise>
+          <!-- _locID_text="None" -->None
+          <xsl:text>&#xA;</xsl:text>
+        </xsl:otherwise>
+      </xsl:choose>
+      <xsl:text>&#xA;</xsl:text>
+      <!-- _locID_text="FilesToReview" -->Files to Review
+      <xsl:text>&#xA;</xsl:text>
+        <xsl:choose>
+            <xsl:when test="count(ReviewContext/Changes/Change) > 0">
+                <xsl:for-each select="ReviewContext/Changes/Change[ms:string-compare(@ParentPath, preceding-sibling::Change/@ParentPath,'','i')!=0]">
+                  <xsl:variable name="ParentPath" select="translate(@ParentPath,'abcdefghijklmnopqrstuvwxyz','ABCDEFGHIJKLMNOPQRSTUVWXYZ')"/>
+                  <!-- need to take the first value from the keys -->
+                  <xsl:if test="generate-id(.) = generate-id(key('items-by-folder', $ParentPath)[1])">
+                    <xsl:value-of select="@ParentPath" />
+                    <xsl:text>&#xA;</xsl:text>
+                    <xsl:for-each select="key('items-by-folder', $ParentPath)">
+                      <xsl:call-template name="indent">
+                        <xsl:with-param name="depth" select="1" />
+                        <xsl:with-param name="indentChars" select="'    '" />
+                      </xsl:call-template>
+                      <xsl:value-of select="@ChildItem" />
+                      <xsl:text>&#xA;</xsl:text>
+                    </xsl:for-each>
+                    <xsl:text>&#xA;</xsl:text>
+                  </xsl:if>
+                </xsl:for-each>
+            </xsl:when>
+            <xsl:otherwise>
+                <!-- _locID_text="None" -->None
+            </xsl:otherwise>
+        </xsl:choose>
+        <!-- Apply the standard TFS footer -->
+        <xsl:call-template name="footer">
+            <xsl:with-param name="format" select="'text'"/>
+            <xsl:with-param name="alertOwner" select="Subscriber"/>
+            <xsl:with-param name="timeZoneOffset" select="TimeZoneOffset"/>
+            <xsl:with-param name="timeZoneName" select="TimeZone"/>
+        </xsl:call-template>
+    </xsl:template>
+
+    <xsl:template match="Reviewer">
+        <xsl:choose>
+            <xsl:when test="@Status = 'NotStarted' or @Status = 'Added'"><!-- _locID_text="ReviewerRequested" --><xsl:value-of select="@Name"/> has not accepted.</xsl:when>
+            <xsl:when test="@Status = 'Accepted'"><!-- _locID_text="ReviewerAccepted" --><xsl:value-of select="@Name"/> has accepted.</xsl:when>
+          <xsl:when test="@Status = 'Reviewed'">
+            <xsl:choose>
+              <xsl:when test="@Resolution = 'LooksGood'">
+                <!-- _locID_text="ReviewerClosedLooksGood" --><xsl:value-of select="@Name"/> has finished (Looks Good).
+              </xsl:when>
+              <xsl:when test="@Resolution = 'WithComments'">
+                <!-- _locID_text="ReviewerClosedWithComments" --><xsl:value-of select="@Name"/> has finished (With Comments).
+              </xsl:when>
+              <xsl:when test="@Resolution = 'NeedsWork'">
+                <!-- _locID_text="ReviewerClosedNeedsWork" --><xsl:value-of select="@Name"/> has finished (Needs Work).
+              </xsl:when>
+              <xsl:otherwise>
+                <!-- _locID_text="ReviewerClosed" --><xsl:value-of select="@Name"/> has finished.
+              </xsl:otherwise>
+            </xsl:choose>
+          </xsl:when>
+        </xsl:choose>
+        <xsl:text>&#xA;</xsl:text>
+    </xsl:template>
+
+  <xsl:template match="ReviewComment">
+    <xsl:call-template name="indent">
+        <xsl:with-param name="depth" select="count(ancestor::*[name() = 'ReviewComment']) + count(ancestor::*[@FilePath])" />
+        <xsl:with-param name="indentChars" select="'    '" />
+    </xsl:call-template>
+    <xsl:value-of select="@Author" />: <xsl:value-of select="Text" /><xsl:text>  </xsl:text><xsl:value-of select="@PublishDateText" />
+    <xsl:text>&#xA;</xsl:text>
+    <xsl:apply-templates select="Replies/*" />
+  </xsl:template>
+
+    <!-- Template for loading Visual Studio -->
+    <xsl:template name="VisualStudioLink">
+        <xsl:param name="uri"/>
+        <!-- _locID_text="OpenInVS" -->Copy and paste the following into your web browser to open the code review in Visual Studio
+        <xsl:text>&#xA;</xsl:text>
+        <xsl:value-of select="$uri" />
+    </xsl:template>
+
+    <xsl:template name="SectionDivider">
+        <xsl:text>&#xA;</xsl:text>
+        <xsl:value-of select="$textSeparatorLong"/>
+        <xsl:text>&#xA;</xsl:text>
+        <xsl:text>&#xA;</xsl:text>
+    </xsl:template>
+
+    <xsl:template name="indent">
+        <xsl:param name="depth" select="0" />
+        <xsl:param name="indentChars" select="' '" />
+        <xsl:if test="$depth &gt; 0">
+            <xsl:value-of select="$indentChars" />
+            <xsl:call-template name="indent">
+                <xsl:with-param name="depth" select="$depth - 1" />
+                <xsl:with-param name="indentChars" select="$indentChars" />
+            </xsl:call-template>
+        </xsl:if>
+    </xsl:template>
+</xsl:stylesheet>

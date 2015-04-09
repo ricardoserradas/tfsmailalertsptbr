@@ -1,0 +1,62 @@
+﻿<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:b="http://schemas.microsoft.com/TeamFoundation/2010/Build">
+  <xsl:import href="TeamFoundation.xsl"/>
+  <!-- Common TeamSystem elements -->
+  <xsl:output indent="no"/>
+  <xsl:template match="BuildResourceChangedEvent">
+    <xsl:value-of select="Title" />
+    <xsl:text>&#xA;</xsl:text>
+    <xsl:value-of select="$textSeparatorLong"/>
+    <xsl:text>&#xA;</xsl:text>
+        <!-- _locID_text="TeamProjectCollection" -->Team Project Collection: <xsl:value-of select="@TeamProjectCollectionUrl" />
+        <xsl:text>&#xA;</xsl:text>
+
+        <!-- _locID_text="EventAction" -->Action: <xsl:value-of select="@ChangedType" />
+        <xsl:text>&#xA;</xsl:text>
+
+        <!-- _locID_text="ResourceRype" -->Resource Type: <xsl:value-of select="@ResourceType" />
+        <xsl:text>&#xA;</xsl:text>
+
+        <!-- _locID_text="ChangedBy" -->Changed By: <xsl:value-of select="@ChangedBy" />
+        <xsl:text>&#xA;</xsl:text>
+        
+        <!-- _locID_text="Name" -->Name: <xsl:value-of select="@Name" /> (<xsl:value-of select="@Uri" />)
+        <xsl:text>&#xA;</xsl:text>
+        
+        <xsl:choose>
+            <!-- Added Build Resource -->
+            <xsl:when test="@ChangedType = 'Added'">
+                <!-- Properties -->
+                <xsl:for-each select="PropertyChanges/PropertyChange">
+                    <xsl:sort select="@Name"/>
+                    <xsl:value-of select="@Name" />: <xsl:value-of select="b:NewValue" /><xsl:text>&#xA;</xsl:text>
+                </xsl:for-each>
+            </xsl:when>
+
+            <!-- Updated Build Definition -->
+            <xsl:when test="@ChangedType = 'Updated'">
+                <!-- Properties -->
+                <xsl:for-each select="PropertyChanges/PropertyChange">
+                    <xsl:sort select="@Name"/>
+                    <xsl:value-of select="@Name" /><xsl:text>:&#xA;</xsl:text>
+                    <xsl:text>&#160;&#160;&#160;&#160;Old Value:</xsl:text><xsl:value-of select="b:OldValue" /><xsl:text>&#xA;</xsl:text>
+                    <xsl:text>&#160;&#160;&#160;&#160;New Value:</xsl:text><xsl:value-of select="b:NewValue" /><xsl:text>&#xA;</xsl:text>
+                </xsl:for-each>
+            </xsl:when>
+
+            <!-- Deleted Build Definition -->
+            <xsl:when test="@ChangedType = 'Deleted'">
+                <!-- Properties -->
+                <xsl:for-each select="PropertyChanges/PropertyChange">
+                    <xsl:sort select="@Name"/>
+                    <xsl:value-of select="@Name" />: <xsl:value-of select="b:OldValue" /><xsl:text>&#xA;</xsl:text>
+                </xsl:for-each>
+            </xsl:when>
+        </xsl:choose>
+    <xsl:call-template name="footer">
+      <xsl:with-param name="format" select="'text'"/>
+      <xsl:with-param name="alertOwner" select="Subscriber"/>
+      <xsl:with-param name="timeZoneOffset" select="TimeZoneOffset"/>
+      <xsl:with-param name="timeZoneName" select="TimeZone"/>
+    </xsl:call-template>
+  </xsl:template>
+</xsl:stylesheet>

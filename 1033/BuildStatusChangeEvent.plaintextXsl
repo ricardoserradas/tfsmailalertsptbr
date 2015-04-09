@@ -1,0 +1,27 @@
+﻿<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+<xsl:import href="TeamFoundation.xsl"/>
+<!-- Common TeamSystem elements -->
+<xsl:output indent="no"/>
+<xsl:template match="/">
+<xsl:call-template name="link">
+	<xsl:with-param name="format" select="'text'"/>
+	<xsl:with-param name="link" select="BuildStatusChangeEvent/Url"/>
+	<xsl:with-param name="displayText" select="BuildStatusChangeEvent/Title"/>
+</xsl:call-template>
+<xsl:text>&#xA;</xsl:text>
+<xsl:value-of select="$textSeparatorLong"/>
+<xsl:text>&#xA;</xsl:text>
+<!-- _locID_text="TeamProject" -->Team project: <xsl:value-of select="BuildStatusChangeEvent/TeamProject"/>
+<!-- _locID_text="BuildNumber" -->Build Number: <xsl:value-of select="BuildStatusChangeEvent/Id"/>
+<!-- _locID_text="Details" -->Details: Build Quality changed by <xsl:value-of select="BuildStatusChangeEvent/ChangedBy"/> from &apos;<xsl:value-of select="BuildStatusChangeEvent/StatusChange/OldValue"/>&apos; to &apos;<xsl:value-of select="BuildStatusChangeEvent/StatusChange/NewValue"/>&apos;
+<!-- _locID_text="ChangedBy" -->Changed by: <xsl:value-of select="BuildStatusChangeEvent/ChangedBy"/>
+<!-- _locID_text="ChangedOn" -->Changed on: <xsl:value-of select="BuildStatusChangeEvent/ChangedTime"/>
+<xsl:text>&#xA;</xsl:text>
+	<xsl:call-template name="footer">
+	<xsl:with-param name="format" select="'text'"/>
+	<xsl:with-param name="alertOwner" select="BuildStatusChangeEvent/Subscriber"/>
+	<xsl:with-param name="timeZoneOffset" select="BuildStatusChangeEvent/TimeZoneOffset"/>
+	<xsl:with-param name="timeZoneName" select="BuildStatusChangeEvent/TimeZone"/>
+</xsl:call-template><xsl:text/>
+</xsl:template>
+</xsl:stylesheet>

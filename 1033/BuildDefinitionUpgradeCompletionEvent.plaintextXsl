@@ -1,0 +1,24 @@
+<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+  <xsl:import href="TeamFoundation.xsl"/>
+  <!-- Common TeamSystem elements -->
+  <xsl:output indent="no"/>
+  <xsl:template match="BuildDefinitionUpgradeCompletionEvent">
+    <xsl:call-template name="link">
+      <xsl:with-param name="format" select="'text'"/>
+      <xsl:with-param name="link" select="Url"/>
+      <xsl:with-param name="displayText" select="Title"/>
+    </xsl:call-template>
+    <xsl:text>&#xA;</xsl:text>
+    <xsl:value-of select="$textSeparatorLong"/>
+    <xsl:text>&#xA;</xsl:text>
+    <!-- _locID_text="TeamProject" -->Team Project: <xsl:value-of select="TeamProject"/>
+    <!-- _locID_text="BuildDefinition" -->Build Definition: <xsl:value-of select="DefinitionPath"/>
+    <xsl:text>&#xA;</xsl:text>
+    <xsl:call-template name="footer">
+      <xsl:with-param name="format" select="'text'"/>
+      <xsl:with-param name="alertOwner" select="Subscriber"/>
+      <xsl:with-param name="timeZoneOffset" select="TimeZoneOffset"/>
+      <xsl:with-param name="timeZoneName" select="TimeZone"/>
+    </xsl:call-template>
+  </xsl:template>
+</xsl:stylesheet>

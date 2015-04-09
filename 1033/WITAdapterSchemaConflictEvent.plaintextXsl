@@ -1,0 +1,62 @@
+﻿<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+  <xsl:import href="TeamFoundation.xsl"/>
+  <!-- Common TeamSystem elements -->
+  <xsl:output indent="no"/>
+  <xsl:template match="WITAdapterSchemaConflictEvent">
+    <xsl:value-of select="Title" />
+    <xsl:text>&#xA;</xsl:text>
+    <xsl:value-of select="$textSeparatorLong"/>
+    <xsl:text>&#xA;</xsl:text>
+    <xsl:text>&#xA;</xsl:text>
+    <xsl:value-of select="Message" />
+    <xsl:text>&#xA;</xsl:text>
+    <xsl:text>&#xA;</xsl:text>
+    <xsl:value-of select="$textSeparatorLong"/>
+    <xsl:text>&#xA;</xsl:text>
+    <xsl:text><!--_locID_text="targetCollection"-->Target Collection: </xsl:text><xsl:value-of select="TeamProjectCollectionName"/>
+    <xsl:text>&#xA;</xsl:text>
+    <xsl:text><!--_locID_text="notificationTime"-->Notification Time: </xsl:text><xsl:value-of select="EventTime"/>
+    <xsl:text>&#xA;</xsl:text>
+    <xsl:text><!--_locID_text="targetCollection"-->Blocked Fields: </xsl:text><xsl:value-of select="count(Conflicts/Conflict)" />
+    <xsl:text>&#xA;</xsl:text>
+    <xsl:if test="count(Conflicts) > 0">
+      <xsl:text>&#xA;</xsl:text>
+      <xsl:text><!--_locID_text="conflicts"-->--------------- CONFLICTS ----------------</xsl:text>
+      <xsl:for-each select="Conflicts/Conflict">
+        <xsl:text>&#xA;</xsl:text>
+        <xsl:call-template name="ConflictingFields">
+          <xsl:with-param name="blockedField" select="BlockedField" />
+          <xsl:with-param name="conflictingFields" select="ConflictingFields" />
+        </xsl:call-template>
+        <xsl:text>&#xA;</xsl:text>
+      </xsl:for-each>
+    </xsl:if>
+    <xsl:call-template name="footer">
+      <xsl:with-param name="format" select="'text'"/>
+      <xsl:with-param name="alertOwner" select="Subscriber"/>
+      <xsl:with-param name="timeZoneOffset" select="TimeZoneOffset"/>
+      <xsl:with-param name="timeZoneName" select="TimeZone"/>
+    </xsl:call-template>
+  </xsl:template>
+  <xsl:template name="ConflictingFields">
+    <xsl:param name="blockedField" />
+    <xsl:param name="conflictingFields" />
+    <xsl:for-each select="$conflictingFields/WITField">
+      <xsl:text>&#xA;</xsl:text>
+      <xsl:text><!--_locID_text="blockedFieldName"-->Blocked Field Name: </xsl:text>
+      <xsl:value-of select="$blockedField/ReportingDisplayName"/>
+      <xsl:text>&#xA;</xsl:text>
+      <xsl:text><!--_locID_text="blockedFieldReferenceName"-->Blocked Field Reference Name: </xsl:text>
+      <xsl:value-of select="$blockedField/ReportingReferenceName"/>
+      <xsl:text>&#xA;</xsl:text>
+      <xsl:text><!--_locID_text="conflictingFieldName"-->Conflicting Field Name: </xsl:text>
+      <xsl:value-of select="ReportingDisplayName"/>
+      <xsl:text>&#xA;</xsl:text>
+      <xsl:text><!--_locID_text="conflictingFieldReferenceName"-->Conflicting Field Reference Name: </xsl:text>
+      <xsl:value-of select="ReportingReferenceName"/>
+      <xsl:text>&#xA;</xsl:text>
+      <xsl:text><!--_locID_text="collectionName"-->Collection: </xsl:text>
+      <xsl:value-of select="TeamProjectCollectionName"/>
+    </xsl:for-each>
+  </xsl:template>
+</xsl:stylesheet>
